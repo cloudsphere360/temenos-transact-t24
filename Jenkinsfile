@@ -11,11 +11,16 @@ pipeline {
                 checkout scm
             }
         }
-
-        stage('Step 2: Check TAFJ & T24 Lib Paths on Agent') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
+        stage('Check Workspace') {
+    steps {
+        sh '''
+            pwd
+            echo "===== Files ====="
+            ls -la
+            echo "===== Find pom.xml ====="
+            find . -name pom.xml -type f
+        '''
+          }
+       }        
     }
 }
