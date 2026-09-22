@@ -1,26 +1,29 @@
 pipeline {
     agent {
-        node {
-            label 'Jenkins Server Agent-1'
-        }
+        label 'Jenkins Server Agent-1'
     }
 
     stages {
-        stage('Step 1: Checkout Source Code') {
+
+        stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-        stage('Check Workspace') {
-    steps {
-        sh '''
-            pwd
-            echo "===== Files ====="
-            ls -la
-            echo "===== Find pom.xml ====="
-            find . -name pom.xml -type f
-        '''
-          }
-       }        
+
+        stage('Inspect Changes') {
+            steps {
+                sh '''
+                    echo "===== WORKSPACE ====="
+                    pwd
+
+                    echo "===== CHANGED FILES ====="
+                    git diff --name-only HEAD~1 HEAD
+
+                    echo "===== POM FILES ====="
+                    find . -name "pom.xml" -type f
+                '''
+            }
+        }
     }
 }
