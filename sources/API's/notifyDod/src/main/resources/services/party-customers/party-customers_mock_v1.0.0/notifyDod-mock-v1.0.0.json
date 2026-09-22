@@ -1,0 +1,1 @@
+{"customerEventLog":[{"customerEventLog":"string"}],"guarantorDeathStatus":[{"guarantorNotificationDeathDate":"string","guarantorEventLog":"string","guarantorDeathStatus":"string"}],"deathTag":"string","extensions":{},"ref":"mock-party","customerDeathStatus":"string","loanNumber":[{"guarantorLegalName":"string","loanNumber":"string"}],"customerDeathDate":"string"}

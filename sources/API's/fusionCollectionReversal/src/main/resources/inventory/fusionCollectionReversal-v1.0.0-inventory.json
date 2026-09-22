@@ -1,0 +1,31 @@
+{
+  "key" : "fusionCollectionReversal",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "DELETE",
+    "url" : "/product/fusionCollection/reverse/{id}",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "FUNDS.TRANSFER,EM.FF.LOAN.COLLECTION.API.1.0.0"
+    } ],
+    "operationId" : "reverse",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "reverse"
+  } ],
+  "title" : "fusionCollectionReversal",
+  "description" : "fusionCollectionReversal",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : true
+}

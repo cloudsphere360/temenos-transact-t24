@@ -1,0 +1,34 @@
+{
+  "key" : "fusionCollectionResponseAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "GET",
+    "url" : "/reference/fusionCollectionResponse",
+    "resources" : [ {
+      "resourceType" : "Query",
+      "key" : "FF.FT.COLL.RESP.API.1.0.0",
+      "selections" : [ {
+        "field" : "@ID",
+        "operand" : "EQ",
+        "param" : "transactionId",
+        "type" : "string"
+      } ]
+    } ],
+    "operationId" : "fusionCollectionResponse",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false"
+    }
+  } ],
+  "title" : "fusionCollectionResponseAPI",
+  "description" : "fusionCollectionResponseAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

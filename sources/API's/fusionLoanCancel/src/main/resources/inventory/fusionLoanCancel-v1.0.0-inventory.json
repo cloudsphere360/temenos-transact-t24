@@ -1,0 +1,31 @@
+{
+  "key" : "fusionLoanCancel",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/reference/fusionLoanCancel",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.LOAN.ACTIVITY,FF.API.INPUT.CANCEL.1.0.0"
+    } ],
+    "operationId" : "fusionLoanCancel",
+    "operationSecurity" : "Public",
+    "summary" : "fusionLoanCancel",
+    "description" : "fusionLoanCancel",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusionLoanCancel",
+  "description" : "fusionLoanCancel",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

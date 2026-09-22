@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="reference-glTransaction-createGlTransaction.service.v1">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="createGlTransaction-v1-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1/reference/glTransaction" produces="application/json" id="reference-glTransaction.service.restlet">
+        <post uri="/" id="CREATE">
+            <to uri="direct-vm:reference-glTransaction.v1.CREATE"/>
+        </post>
+    </rest>
+    <route id="direct-vm.reference-glTransaction.v1.CREATE">
+        <from uri="direct-vm:reference-glTransaction.v1.CREATE"/>
+        <to uri="direct-vm:reference-glTransaction.v1.0.0.CREATE"/>
+    </route>
+</camelContext>
+
+</beans>

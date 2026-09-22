@@ -1,0 +1,31 @@
+{
+  "key" : "Settlementpartial",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/party/Fusion/PartialWriteOff",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.WRT.CHG.OFF.ACTIVITY,PARTIAL.WRITE.OFF.API.1.0.0"
+    } ],
+    "operationId" : "fusionpartial",
+    "operationSecurity" : "Public",
+    "summary" : "fusionpartial",
+    "description" : "fusionpartial",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "Settlementpartial",
+  "description" : "Settlementpartial",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

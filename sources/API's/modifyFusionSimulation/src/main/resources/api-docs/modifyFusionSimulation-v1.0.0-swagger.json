@@ -1,0 +1,2696 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "modifyFusionSimulation",
+    "version" : "v1.0.0",
+    "title" : "modifyFusionSimulation"
+  },
+  "host" : "api.server.com",
+  "basePath" : "/api/v1.0.0/",
+  "tags" : [ {
+    "name" : "RETAIL"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "security" : [ {
+    "basicAuth" : [ ]
+  }, {
+    "apiKey" : [ ]
+  } ],
+  "paths" : {
+    "/product/modifyFusionSimulation/{id}" : {
+      "put" : {
+        "tags" : [ "RETAIL" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "modifyFusionSimulation",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "validate_only",
+          "in" : "query",
+          "description" : "The identifier to indicate if it is set to only validate or not.",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/FusionSimulation"
+          }
+        }, {
+          "name" : "credentials",
+          "in" : "header",
+          "description" : "Username and password to authenticate the API against core-banking.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "companyId",
+          "in" : "header",
+          "description" : "Identifier of the lead company of the underlying Entity/Company/Branch for the respective contract for customer data protection purposes. Example US0010001.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "deviceId",
+          "in" : "header",
+          "description" : "Identifies the device type",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "userRole",
+          "in" : "header",
+          "description" : "User who initiated the transaction",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "modifyFusionSimulationResponse",
+            "schema" : {
+              "$ref" : "#/definitions/FusionSimulationResponse"
+            }
+          },
+          "default" : {
+            "description" : "ArrangementErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/ArrangementErrorResponse"
+            }
+          },
+          "400" : {
+            "description" : "BusinessArrangementErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/BusinessArrangementErrorResponse"
+            }
+          },
+          "500" : {
+            "description" : "SystemArrangementErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/SystemArrangementErrorResponse"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "id",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      } ]
+    }
+  },
+  "securityDefinitions" : {
+    "basicAuth" : {
+      "type" : "basic"
+    },
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "PayloadHeader" : {
+      "properties" : {
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            }
+          }
+        }
+      }
+    },
+    "FusionSimulation" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/PayloadHeader"
+        },
+        "body" : {
+          "$ref" : "#/definitions/FusionSimulationBody"
+        }
+      },
+      "description" : "FusionSimulation"
+    },
+    "FusionSimulationBody" : {
+      "type" : "object",
+      "properties" : {
+        "partyIds" : {
+          "type" : "array",
+          "description" : "Allows capturing of customers or person entities to be part of the relationship. If partyType is selected as Customer, then the system will allow only customer Ids to be captured into this field. If partyType is selected as Person or Entity, then system will allow only personEntity Ids to be captured into this field.",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "customerId" : {
+                "type" : "string",
+                "description" : "Identifier of the customer",
+                "minLength" : 0,
+                "maxLength" : 10
+              },
+              "partyRole" : {
+                "type" : "string",
+                "description" : "Contains the identifier used for the role played by the party or customer in the contract or account",
+                "minLength" : 0,
+                "maxLength" : 30
+              }
+            }
+          }
+        },
+        "arrangement" : {
+          "type" : "string",
+          "description" : "Unique identifier for the arrangement contract",
+          "minLength" : 0,
+          "maxLength" : 20
+        },
+        "currency" : {
+          "type" : "string",
+          "description" : "Identifies the currency. E.g. USD, GBP etc",
+          "minLength" : 0,
+          "maxLength" : 3
+        },
+        "productId" : {
+          "type" : "string",
+          "description" : "Contains the unique identifier of the product, e.g. the product id of the arrangement account.",
+          "minLength" : 0,
+          "maxLength" : 30
+        },
+        "activity" : {
+          "type" : "string",
+          "description" : "Defines the activity to be processed against the Arrangement. The activity may be a user activity or a system generated activity.",
+          "minLength" : 0,
+          "maxLength" : 80
+        },
+        "effectiveDate" : {
+          "type" : "string",
+          "description" : "Contains the identifier for the transaction date. Dates are expected in ‘YYYYMMDD’ format",
+          "minLength" : 0,
+          "maxLength" : 11
+        },
+        "automaticRun" : {
+          "type" : "string",
+          "description" : "This field would be used during the Simulation scenarios. The following options are supported: 1. SIMULATE : The system would automatically trigger the Simulation the moment the simulated transaction is authorized. 2. EXECUTE : The system would automatically trigger the Execution of simulation the moment simulated transaction is authorized. It is assumed that the user would have simulated first before using this option. 3. DIRECT.EXECUTE: If the user does not want to do a two step process of simulating and executing, then this option may be utilized which does both actions in one go",
+          "minLength" : 0,
+          "maxLength" : 35
+        },
+        "simulationRunReference" : {
+          "type" : "string",
+          "description" : "Indicates the runner Reference ID for simulation activity",
+          "minLength" : 0,
+          "maxLength" : 30
+        },
+        "synchronous" : {
+          "type" : "string",
+          "description" : "Indicates that this simulation capture is a synchronous request",
+          "minLength" : 0,
+          "maxLength" : 3
+        },
+        "channel" : {
+          "type" : "string",
+          "description" : "Contains the channel in which the activity was performed. If pricing is not determined based on channel, then this is not significant",
+          "minLength" : 0,
+          "maxLength" : 30
+        },
+        "companyCode" : {
+          "type" : "string",
+          "description" : "The identifier of the underlying Entity/Company/Branch.",
+          "minLength" : 0,
+          "maxLength" : 11
+        },
+        "originalTransactionAmount" : {
+          "type" : "string",
+          "description" : "Contains the original transaction amount for the activity. This is based on the currrency either local or foreign currency",
+          "minLength" : 0,
+          "maxLength" : 19
+        },
+        "lineOfBusiness" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 4
+        },
+        "extensions" : {
+          "type" : "object",
+          "description" : "Indicates the extensions"
+        },
+        "account" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "closedLoans" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "closeLoan" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    },
+                    "closeAmount" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    }
+                  }
+                }
+              },
+              "repayingLoans" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "repayLoan" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    },
+                    "repayAmount" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    }
+                  }
+                }
+              },
+              "group" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "centre" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 60
+              },
+              "village" : {
+                "type" : "string",
+                "description" : "Contains the village where the property is located",
+                "minLength" : 0,
+                "maxLength" : 60
+              },
+              "panchayat" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "division" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "cluster" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "region" : {
+                "type" : "string",
+                "description" : "Name of the region used for display or enrichment",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "zone" : {
+                "type" : "string",
+                "description" : "Specifies the zone under which the respective property is classified based on zoning rules applicable for the respective country or region. E.g., - Residential Zone, Commercial Zone, or Industrial Zone",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "cycle" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "utr" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "purpcode" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "disburseBranch" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "sanctionDate" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "loanTransfer" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "fundingSource" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "disburseMode" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "extLoannum" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "riskType" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "auditStatus" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "losLoanProduct" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "subPurpose" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "vendorType" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "businessType" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "categoryOfLoan" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "insuranceName" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        },
+        "processingfee" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "flatCharge" : {
+                "type" : "string",
+                "description" : "Specified the fixed charge amount to be collected",
+                "minLength" : 0,
+                "maxLength" : 19
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        },
+        "insurancefee" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "flatCharge" : {
+                "type" : "string",
+                "description" : "Specified the fixed charge amount to be collected",
+                "minLength" : 0,
+                "maxLength" : 19
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        },
+        "pennydrop" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "flatCharge" : {
+                "type" : "string",
+                "description" : "Specified the fixed charge amount to be collected",
+                "minLength" : 0,
+                "maxLength" : 19
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        },
+        "cgst" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "flatCharge" : {
+                "type" : "string",
+                "description" : "Specified the fixed charge amount to be collected",
+                "minLength" : 0,
+                "maxLength" : 19
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        },
+        "sgst" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "flatCharge" : {
+                "type" : "string",
+                "description" : "Specified the fixed charge amount to be collected",
+                "minLength" : 0,
+                "maxLength" : 19
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        },
+        "igst" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "flatCharge" : {
+                "type" : "string",
+                "description" : "Specified the fixed charge amount to be collected",
+                "minLength" : 0,
+                "maxLength" : 19
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        },
+        "hospicash" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "flatCharge" : {
+                "type" : "string",
+                "description" : "Specified the fixed charge amount to be collected",
+                "minLength" : 0,
+                "maxLength" : 19
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        },
+        "individual" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "customer" : {
+                "type" : "string",
+                "description" : "Contains the customer identifier to fetch list of consent arrangements for the customer or customer identifier of the debtor account. This will be populated once the SCA(Strong Customer Authentication) is completed.",
+                "minLength" : 0,
+                "maxLength" : 10
+              },
+              "taxLiabilityPerc1" : {
+                "type" : "string",
+                "description" : "Tax liability percentage of the customer",
+                "minLength" : 0,
+                "maxLength" : 12
+              },
+              "limitAllocPerc1" : {
+                "type" : "string",
+                "description" : "Percentage of limit allocated to the customer out of overall limit",
+                "minLength" : 0,
+                "maxLength" : 12
+              },
+              "glAllocPerc1" : {
+                "type" : "string",
+                "description" : "GL allocation percentage of the customer",
+                "minLength" : 0,
+                "maxLength" : 12
+              },
+              "jsLiable" : {
+                "type" : "string",
+                "description" : "Joint & Severally Liable",
+                "minLength" : 0,
+                "maxLength" : 1,
+                "enum" : [ "Joint & Severally Liable" ]
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        },
+        "printerest" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fixedRate" : {
+                "type" : "string",
+                "description" : "Numeric value for the interest rate entered manually.",
+                "minLength" : 0,
+                "maxLength" : 13
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        },
+        "advpayrefund" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fixedRate" : {
+                "type" : "string",
+                "description" : "Numeric value for the interest rate entered manually.",
+                "minLength" : 0,
+                "maxLength" : 13
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        },
+        "paymentSchedule" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "payment" : {
+                "type" : "array",
+                "description" : "Indicates the initiation of payment for an account",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "paymentMethod" : {
+                      "type" : "string",
+                      "description" : "Method chosen to make the payment",
+                      "minLength" : 0,
+                      "maxLength" : 10
+                    },
+                    "paymentFrequency" : {
+                      "type" : "string",
+                      "description" : "The frequency at which a payment is required to be generated",
+                      "minLength" : 0,
+                      "maxLength" : 38
+                    },
+                    "payments" : {
+                      "type" : "array",
+                      "description" : "Indicates the initiation of payment for an account",
+                      "items" : {
+                        "type" : "object",
+                        "properties" : {
+                          "percentage" : {
+                            "type" : "string",
+                            "description" : "The percentage of holdings redeemed/subscribed",
+                            "minLength" : 0,
+                            "maxLength" : 12
+                          },
+                          "startDate" : {
+                            "type" : "string",
+                            "description" : "Contains the date on which the transaction or payment gets initiated.",
+                            "minLength" : 0,
+                            "maxLength" : 30
+                          },
+                          "endDate" : {
+                            "type" : "string",
+                            "description" : "Indicates the date till which the transaction history requested. If 20120101 is the start date and 20120201 is the end date, all transactions that are booked between January 1 to February 1 2012 are returned",
+                            "minLength" : 0,
+                            "maxLength" : 30
+                          },
+                          "calcAmount" : {
+                            "type" : "string",
+                            "description" : "System calculated Payment amount",
+                            "minLength" : 0,
+                            "maxLength" : 18
+                          },
+                          "emiAmount" : {
+                            "type" : "string",
+                            "description" : "",
+                            "minLength" : 0,
+                            "maxLength" : 18
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "amortisationTerm" : {
+                "type" : "string",
+                "description" : "Indicates the amortisation term. When specified, the repayment amount is calculated based on the amortisation term insteam of the account term. When the amortisation term is less than account term, there will be a residual amount to be paid at the maturity.",
+                "minLength" : 0,
+                "maxLength" : 4
+              },
+              "residualAmount" : {
+                "type" : "string",
+                "description" : "The amount to be paid at the maturity date",
+                "minLength" : 0,
+                "maxLength" : 18
+              },
+              "baseDayKey" : {
+                "type" : "string",
+                "description" : "Indicates whether the cycling of dates should follow the base day calculation or not. Allowed values are BASE, PREVIOUS, NULL. BASE - Base day calculation will be applied. PREVIOUS/NULL - Base day calculation will not be applied",
+                "minLength" : 0,
+                "maxLength" : 20
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        },
+        "commitment" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "amount" : {
+                "type" : "string",
+                "description" : "This is the payment amount",
+                "minLength" : 0,
+                "maxLength" : 19
+              },
+              "term" : {
+                "type" : "string",
+                "description" : "Indicates the period to which the BID and OFFER rates apply",
+                "minLength" : 0,
+                "maxLength" : 6
+              },
+              "maturityDate" : {
+                "type" : "string",
+                "description" : "Indicates maturity date of the contract",
+                "minLength" : 0,
+                "maxLength" : 11
+              },
+              "maturityDateType" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 16
+              },
+              "revolving" : {
+                "type" : "string",
+                "description" : "Indicates if commitment is revolving or non revolving in nature",
+                "minLength" : 0,
+                "maxLength" : 10
+              },
+              "updateLimit" : {
+                "type" : "string",
+                "description" : "Flag to define if the limits are to be booked or not at the time of issuing the pre-advice LC. Allowed values: - YES - NO (same as null) - null (default).",
+                "minLength" : 0,
+                "maxLength" : 3
+              },
+              "commitmentDrawdown" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 10
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        },
+        "settleInstructions" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "payoutSettlementDetails" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "payoutSettlement" : {
+                      "type" : "string",
+                      "description" : "Flag to indicate whether Payout Settlement instruction is required or not.Valid input is Yes or No.Default value is Yes.",
+                      "minLength" : 0,
+                      "maxLength" : 3
+                    },
+                    "payOutAcctDetails" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "object",
+                        "properties" : {
+                          "payoutAccount" : {
+                            "type" : "string",
+                            "description" : "The account to which a settlement amount is transferred.",
+                            "minLength" : 0,
+                            "maxLength" : 90
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "extensions" : {
+                "type" : "object",
+                "description" : "Indicates the extensions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "ArrangementHeader" : {
+      "properties" : {
+        "transactionStatus" : {
+          "type" : "string",
+          "description" : "The status of the transaction"
+        },
+        "aaaId" : {
+          "type" : "string",
+          "description" : "The Identifier of the aa record created"
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "The Identifier of the record created"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the API(success/failed)"
+        },
+        "uniqueIdentifier" : {
+          "type" : "string",
+          "description" : "The unique identifier/Message Reference of the record created."
+        },
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "T24_time" : {
+              "type" : "integer",
+              "format" : "int32",
+              "description" : "Time taken to response by Transact"
+            },
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            },
+            "requestParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the request by IRIS"
+            },
+            "responseParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the response by IRIS"
+            }
+          }
+        }
+      }
+    },
+    "FusionSimulationResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ArrangementHeader"
+        },
+        "body" : {
+          "$ref" : "#/definitions/FusionSimulationResponseBody"
+        }
+      },
+      "description" : "FusionSimulationResponse"
+    },
+    "FusionSimulationResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "arrangementActivity" : {
+          "type" : "object",
+          "properties" : {
+            "partyIds" : {
+              "type" : "array",
+              "description" : "Allows capturing of customers or person entities to be part of the relationship. If partyType is selected as Customer, then the system will allow only customer Ids to be captured into this field. If partyType is selected as Person or Entity, then system will allow only personEntity Ids to be captured into this field.",
+              "items" : {
+                "type" : "object",
+                "properties" : {
+                  "customerId" : {
+                    "type" : "string",
+                    "description" : "Identifier of the customer",
+                    "minLength" : 0,
+                    "maxLength" : 10
+                  },
+                  "partyRole" : {
+                    "type" : "string",
+                    "description" : "Contains the identifier used for the role played by the party or customer in the contract or account",
+                    "minLength" : 0,
+                    "maxLength" : 30
+                  }
+                }
+              }
+            },
+            "arrangement" : {
+              "type" : "string",
+              "description" : "Unique identifier for the arrangement contract",
+              "minLength" : 0,
+              "maxLength" : 20
+            },
+            "currency" : {
+              "type" : "string",
+              "description" : "Identifies the currency. E.g. USD, GBP etc",
+              "minLength" : 0,
+              "maxLength" : 3
+            },
+            "productId" : {
+              "type" : "string",
+              "description" : "Contains the unique identifier of the product, e.g. the product id of the arrangement account.",
+              "minLength" : 0,
+              "maxLength" : 30
+            },
+            "activity" : {
+              "type" : "string",
+              "description" : "Defines the activity to be processed against the Arrangement. The activity may be a user activity or a system generated activity.",
+              "minLength" : 0,
+              "maxLength" : 80
+            },
+            "effectiveDate" : {
+              "type" : "string",
+              "description" : "Contains the identifier for the transaction date. Dates are expected in ‘YYYYMMDD’ format",
+              "minLength" : 0,
+              "maxLength" : 11
+            },
+            "automaticRun" : {
+              "type" : "string",
+              "description" : "This field would be used during the Simulation scenarios. The following options are supported: 1. SIMULATE : The system would automatically trigger the Simulation the moment the simulated transaction is authorized. 2. EXECUTE : The system would automatically trigger the Execution of simulation the moment simulated transaction is authorized. It is assumed that the user would have simulated first before using this option. 3. DIRECT.EXECUTE: If the user does not want to do a two step process of simulating and executing, then this option may be utilized which does both actions in one go",
+              "minLength" : 0,
+              "maxLength" : 35
+            },
+            "simulationRunReference" : {
+              "type" : "string",
+              "description" : "Indicates the runner Reference ID for simulation activity",
+              "minLength" : 0,
+              "maxLength" : 30
+            },
+            "synchronous" : {
+              "type" : "string",
+              "description" : "Indicates that this simulation capture is a synchronous request",
+              "minLength" : 0,
+              "maxLength" : 3
+            },
+            "channel" : {
+              "type" : "string",
+              "description" : "Contains the channel in which the activity was performed. If pricing is not determined based on channel, then this is not significant",
+              "minLength" : 0,
+              "maxLength" : 30
+            },
+            "companyCode" : {
+              "type" : "string",
+              "description" : "The identifier of the underlying Entity/Company/Branch.",
+              "minLength" : 0,
+              "maxLength" : 11
+            },
+            "originalTransactionAmount" : {
+              "type" : "string",
+              "description" : "Contains the original transaction amount for the activity. This is based on the currrency either local or foreign currency",
+              "minLength" : 0,
+              "maxLength" : 19
+            },
+            "lineOfBusiness" : {
+              "type" : "string",
+              "description" : "",
+              "minLength" : 0,
+              "maxLength" : 4
+            },
+            "extensions" : {
+              "type" : "object",
+              "description" : "Indicates the extensions"
+            }
+          }
+        },
+        "activities" : {
+          "type" : "object",
+          "properties" : {
+            "{activityName}" : {
+              "type" : "object",
+              "properties" : {
+                "activity" : {
+                  "type" : "string"
+                },
+                "transactionStatus" : {
+                  "type" : "string",
+                  "description" : "The status of the transaction"
+                },
+                "id" : {
+                  "type" : "string",
+                  "description" : "The Identifier of the record created"
+                }
+              }
+            }
+          }
+        },
+        "properties" : {
+          "type" : "object",
+          "properties" : {
+            "inheritance" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "officers" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "limit" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "splitsMerges" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "changeProduct" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "exchangeRate" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "pricingGrid" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "tax" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "facility" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "agentCommission" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "dormancy" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "reporting" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "periodicCharges" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "pricingRules" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "restructureRules" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "evidence" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "account" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "closedLoans" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "object",
+                        "properties" : {
+                          "closeLoan" : {
+                            "type" : "string",
+                            "description" : "",
+                            "minLength" : 0,
+                            "maxLength" : 35
+                          },
+                          "closeAmount" : {
+                            "type" : "string",
+                            "description" : "",
+                            "minLength" : 0,
+                            "maxLength" : 35
+                          }
+                        }
+                      }
+                    },
+                    "repayingLoans" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "object",
+                        "properties" : {
+                          "repayLoan" : {
+                            "type" : "string",
+                            "description" : "",
+                            "minLength" : 0,
+                            "maxLength" : 35
+                          },
+                          "repayAmount" : {
+                            "type" : "string",
+                            "description" : "",
+                            "minLength" : 0,
+                            "maxLength" : 35
+                          }
+                        }
+                      }
+                    },
+                    "group" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 70
+                    },
+                    "centre" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 60
+                    },
+                    "village" : {
+                      "type" : "string",
+                      "description" : "Contains the village where the property is located",
+                      "minLength" : 0,
+                      "maxLength" : 60
+                    },
+                    "panchayat" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    },
+                    "division" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 70
+                    },
+                    "cluster" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 70
+                    },
+                    "region" : {
+                      "type" : "string",
+                      "description" : "Name of the region used for display or enrichment",
+                      "minLength" : 0,
+                      "maxLength" : 70
+                    },
+                    "zone" : {
+                      "type" : "string",
+                      "description" : "Specifies the zone under which the respective property is classified based on zoning rules applicable for the respective country or region. E.g., - Residential Zone, Commercial Zone, or Industrial Zone",
+                      "minLength" : 0,
+                      "maxLength" : 70
+                    },
+                    "cycle" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    },
+                    "utr" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    },
+                    "purpcode" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 70
+                    },
+                    "disburseBranch" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    },
+                    "sanctionDate" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    },
+                    "loanTransfer" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    },
+                    "fundingSource" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 70
+                    },
+                    "disburseMode" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    },
+                    "extLoannum" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    },
+                    "riskType" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    },
+                    "auditStatus" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    },
+                    "losLoanProduct" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 70
+                    },
+                    "subPurpose" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 70
+                    },
+                    "vendorType" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 70
+                    },
+                    "businessType" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 70
+                    },
+                    "categoryOfLoan" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 70
+                    },
+                    "insuranceName" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 70
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "processingfee" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "flatCharge" : {
+                      "type" : "string",
+                      "description" : "Specified the fixed charge amount to be collected",
+                      "minLength" : 0,
+                      "maxLength" : 19
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "insurancefee" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "flatCharge" : {
+                      "type" : "string",
+                      "description" : "Specified the fixed charge amount to be collected",
+                      "minLength" : 0,
+                      "maxLength" : 19
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "pennydrop" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "flatCharge" : {
+                      "type" : "string",
+                      "description" : "Specified the fixed charge amount to be collected",
+                      "minLength" : 0,
+                      "maxLength" : 19
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "cgst" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "flatCharge" : {
+                      "type" : "string",
+                      "description" : "Specified the fixed charge amount to be collected",
+                      "minLength" : 0,
+                      "maxLength" : 19
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "sgst" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "flatCharge" : {
+                      "type" : "string",
+                      "description" : "Specified the fixed charge amount to be collected",
+                      "minLength" : 0,
+                      "maxLength" : 19
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "igst" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "flatCharge" : {
+                      "type" : "string",
+                      "description" : "Specified the fixed charge amount to be collected",
+                      "minLength" : 0,
+                      "maxLength" : 19
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "hospicash" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "flatCharge" : {
+                      "type" : "string",
+                      "description" : "Specified the fixed charge amount to be collected",
+                      "minLength" : 0,
+                      "maxLength" : 19
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "downpayment" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "individual" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "customer" : {
+                      "type" : "string",
+                      "description" : "Contains the customer identifier to fetch list of consent arrangements for the customer or customer identifier of the debtor account. This will be populated once the SCA(Strong Customer Authentication) is completed.",
+                      "minLength" : 0,
+                      "maxLength" : 10
+                    },
+                    "taxLiabilityPerc1" : {
+                      "type" : "string",
+                      "description" : "Tax liability percentage of the customer",
+                      "minLength" : 0,
+                      "maxLength" : 12
+                    },
+                    "limitAllocPerc1" : {
+                      "type" : "string",
+                      "description" : "Percentage of limit allocated to the customer out of overall limit",
+                      "minLength" : 0,
+                      "maxLength" : 12
+                    },
+                    "glAllocPerc1" : {
+                      "type" : "string",
+                      "description" : "GL allocation percentage of the customer",
+                      "minLength" : 0,
+                      "maxLength" : 12
+                    },
+                    "jsLiable" : {
+                      "type" : "string",
+                      "description" : "Joint & Severally Liable",
+                      "minLength" : 0,
+                      "maxLength" : 1,
+                      "enum" : [ "Joint & Severally Liable" ]
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "printerest" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "fixedRate" : {
+                      "type" : "string",
+                      "description" : "Numeric value for the interest rate entered manually.",
+                      "minLength" : 0,
+                      "maxLength" : 13
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "advpayrefund" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "fixedRate" : {
+                      "type" : "string",
+                      "description" : "Numeric value for the interest rate entered manually.",
+                      "minLength" : 0,
+                      "maxLength" : 13
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "paymentSchedule" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "payment" : {
+                      "type" : "array",
+                      "description" : "Indicates the initiation of payment for an account",
+                      "items" : {
+                        "type" : "object",
+                        "properties" : {
+                          "paymentMethod" : {
+                            "type" : "string",
+                            "description" : "Method chosen to make the payment",
+                            "minLength" : 0,
+                            "maxLength" : 10
+                          },
+                          "paymentFrequency" : {
+                            "type" : "string",
+                            "description" : "The frequency at which a payment is required to be generated",
+                            "minLength" : 0,
+                            "maxLength" : 38
+                          },
+                          "payments" : {
+                            "type" : "array",
+                            "description" : "Indicates the initiation of payment for an account",
+                            "items" : {
+                              "type" : "object",
+                              "properties" : {
+                                "percentage" : {
+                                  "type" : "string",
+                                  "description" : "The percentage of holdings redeemed/subscribed",
+                                  "minLength" : 0,
+                                  "maxLength" : 12
+                                },
+                                "startDate" : {
+                                  "type" : "string",
+                                  "description" : "Contains the date on which the transaction or payment gets initiated.",
+                                  "minLength" : 0,
+                                  "maxLength" : 30
+                                },
+                                "endDate" : {
+                                  "type" : "string",
+                                  "description" : "Indicates the date till which the transaction history requested. If 20120101 is the start date and 20120201 is the end date, all transactions that are booked between January 1 to February 1 2012 are returned",
+                                  "minLength" : 0,
+                                  "maxLength" : 30
+                                },
+                                "calcAmount" : {
+                                  "type" : "string",
+                                  "description" : "System calculated Payment amount",
+                                  "minLength" : 0,
+                                  "maxLength" : 18
+                                },
+                                "emiAmount" : {
+                                  "type" : "string",
+                                  "description" : "",
+                                  "minLength" : 0,
+                                  "maxLength" : 18
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "amortisationTerm" : {
+                      "type" : "string",
+                      "description" : "Indicates the amortisation term. When specified, the repayment amount is calculated based on the amortisation term insteam of the account term. When the amortisation term is less than account term, there will be a residual amount to be paid at the maturity.",
+                      "minLength" : 0,
+                      "maxLength" : 4
+                    },
+                    "residualAmount" : {
+                      "type" : "string",
+                      "description" : "The amount to be paid at the maturity date",
+                      "minLength" : 0,
+                      "maxLength" : 18
+                    },
+                    "baseDayKey" : {
+                      "type" : "string",
+                      "description" : "Indicates whether the cycling of dates should follow the base day calculation or not. Allowed values are BASE, PREVIOUS, NULL. BASE - Base day calculation will be applied. PREVIOUS/NULL - Base day calculation will not be applied",
+                      "minLength" : 0,
+                      "maxLength" : 20
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "commitment" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "amount" : {
+                      "type" : "string",
+                      "description" : "This is the payment amount",
+                      "minLength" : 0,
+                      "maxLength" : 19
+                    },
+                    "term" : {
+                      "type" : "string",
+                      "description" : "Indicates the period to which the BID and OFFER rates apply",
+                      "minLength" : 0,
+                      "maxLength" : 6
+                    },
+                    "maturityDate" : {
+                      "type" : "string",
+                      "description" : "Indicates maturity date of the contract",
+                      "minLength" : 0,
+                      "maxLength" : 11
+                    },
+                    "maturityDateType" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 16
+                    },
+                    "revolving" : {
+                      "type" : "string",
+                      "description" : "Indicates if commitment is revolving or non revolving in nature",
+                      "minLength" : 0,
+                      "maxLength" : 10
+                    },
+                    "updateLimit" : {
+                      "type" : "string",
+                      "description" : "Flag to define if the limits are to be booked or not at the time of issuing the pre-advice LC. Allowed values: - YES - NO (same as null) - null (default).",
+                      "minLength" : 0,
+                      "maxLength" : 3
+                    },
+                    "commitmentDrawdown" : {
+                      "type" : "string",
+                      "description" : "",
+                      "minLength" : 0,
+                      "maxLength" : 10
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "settleInstructions" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string",
+                      "description" : "The status of the transaction"
+                    },
+                    "audit" : {
+                      "type" : "object",
+                      "properties" : {
+                        "T24_time" : {
+                          "type" : "integer",
+                          "format" : "int32",
+                          "description" : "Time taken to response by Transact"
+                        },
+                        "versionNumber" : {
+                          "type" : "string",
+                          "description" : "Current number of the record"
+                        },
+                        "requestParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the request by IRIS"
+                        },
+                        "responseParse_time" : {
+                          "type" : "number",
+                          "description" : "Time taken to parse the response by IRIS"
+                        }
+                      }
+                    },
+                    "id" : {
+                      "type" : "string",
+                      "description" : "The Identifier of the record created"
+                    },
+                    "status" : {
+                      "type" : "string",
+                      "description" : "The status of the record"
+                    }
+                  }
+                },
+                "body" : {
+                  "type" : "object",
+                  "properties" : {
+                    "payoutSettlementDetails" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "object",
+                        "properties" : {
+                          "payoutSettlement" : {
+                            "type" : "string",
+                            "description" : "Flag to indicate whether Payout Settlement instruction is required or not.Valid input is Yes or No.Default value is Yes.",
+                            "minLength" : 0,
+                            "maxLength" : 3
+                          },
+                          "payOutAcctDetails" : {
+                            "type" : "array",
+                            "items" : {
+                              "type" : "object",
+                              "properties" : {
+                                "payoutAccount" : {
+                                  "type" : "string",
+                                  "description" : "The account to which a settlement amount is transferred.",
+                                  "minLength" : 0,
+                                  "maxLength" : 90
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "extensions" : {
+                      "type" : "object",
+                      "description" : "Indicates the extensions"
+                    }
+                  }
+                }
+              }
+            },
+            "notification" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "accStatement" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "subparticipant" : {
+              "type" : "object",
+              "properties" : {
+                "header" : {
+                  "type" : "object",
+                  "properties" : {
+                    "transactionStatus" : {
+                      "type" : "string"
+                    },
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "ArrangementErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ArrangementHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/ArrangementErrorResponseBody"
+        }
+      },
+      "description" : "ArrangementErrorResponse"
+    },
+    "ArrangementErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "errorDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fieldName" : {
+                "type" : "string",
+                "description" : "The name of the field"
+              },
+              "code" : {
+                "type" : "string",
+                "description" : "The identifier of the error message"
+              },
+              "message" : {
+                "type" : "string",
+                "description" : "The actual Transact error message "
+              },
+              "property" : {
+                "type" : "string",
+                "description" : "Id of the product property"
+              }
+            }
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: "
+        }
+      }
+    },
+    "BusinessArrangementErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ArrangementHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/BusinessArrangementErrorResponseBody"
+        }
+      },
+      "description" : "BusinessArrangementErrorResponse"
+    },
+    "BusinessArrangementErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "errorDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fieldName" : {
+                "type" : "string",
+                "description" : "The name of the field"
+              },
+              "code" : {
+                "type" : "string",
+                "description" : "The identifier of the error message"
+              },
+              "message" : {
+                "type" : "string",
+                "description" : "The actual Transact error message for bad requests"
+              },
+              "property" : {
+                "type" : "string",
+                "description" : "Id of the product property"
+              }
+            }
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: Business"
+        }
+      }
+    },
+    "SystemArrangementErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ArrangementHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/SystemArrangementErrorResponseBody"
+        }
+      },
+      "description" : "SystemArrangementErrorResponse"
+    },
+    "SystemArrangementErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "errorDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fieldName" : {
+                "type" : "string",
+                "description" : "The name of the field"
+              },
+              "code" : {
+                "type" : "string",
+                "description" : "The identifier of the error message"
+              },
+              "message" : {
+                "type" : "string",
+                "description" : "The actual Transact error message caused by server"
+              },
+              "property" : {
+                "type" : "string",
+                "description" : "Id of the product property"
+              }
+            }
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: System"
+        }
+      }
+    }
+  }
+}

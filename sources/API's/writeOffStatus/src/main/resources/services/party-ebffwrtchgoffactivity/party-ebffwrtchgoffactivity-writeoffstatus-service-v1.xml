@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="party-ebffwrtchgoffactivity-writeOffStatus.service.v1">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="writeOffStatus-v1-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1/party/ebffwrtchgoffactivity" produces="application/json" id="party-ebffwrtchgoffactivity.service.restlet">
+        <post uri="/" id="writeOffStatus">
+            <to uri="direct-vm:party-ebffwrtchgoffactivity.v1.writeOffStatus"/>
+        </post>
+    </rest>
+    <route id="direct-vm.party-ebffwrtchgoffactivity.v1.writeOffStatus">
+        <from uri="direct-vm:party-ebffwrtchgoffactivity.v1.writeOffStatus"/>
+        <to uri="direct-vm:party-ebffwrtchgoffactivity.v1.0.0.writeOffStatus"/>
+    </route>
+</camelContext>
+
+</beans>

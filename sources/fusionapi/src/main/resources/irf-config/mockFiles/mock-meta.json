@@ -1,0 +1,127 @@
+{
+    "displayName":
+    {
+        "allowed_values": "Dasie Jakubovicz,Ranna Quinane,Graeme Angerstein,Joscelin Nice,Waiter Bumby,Alena Rubertelli,Anatol Beams,Ab Bunstone,Terri Dufty,Gabe Pennock",
+        "datatype": "string"
+    },
+    "fundsTransferId":
+    {
+        "allowed_values": "FT12121333,FT033053093040,FT429482942942,FT21212121245",
+        "datatype": "string"
+    },
+    "executionDate":
+    {
+        "allowed_values": "20170417,20180311,20161112,20150210,20180909,20110101",
+        "datatype": "string"
+    },
+    "totalDebitAmount":
+    {
+        "allowed_values": "12121.32,43334,21,121123.00,24434,35677.71,32431.21",
+        "datatype": "number"
+    },
+    "creditorReference":
+    {
+        "allowed_values": "1224213,221555,987553,2323565,677753543,2323323",
+        "datatype": "number"
+    },
+    "availableBalance":
+    {
+        "allowed_values": "234567,123456.065,123456,74434.01,113.093,131133.01,3231.09,424.81,53343.13,5353.91",
+        "datatype": "number"
+    },
+    "accountStatus":
+    {
+        "allowed_values": "Active,InActive,Closed",
+        "datatype": "string"
+    },
+    "exchangeRate":
+    {
+        "allowed_values": "USD,CAD,AUD,INR,EUR",
+        "datatype": "string"
+    },
+    "paymentId":
+    {
+        "allowed_values": "PI12121333,PI033053093040,PI429482942942,PI21212121245,PI121213331221,PI033053093111,PI4294829423432,PI21212121242323",
+        "datatype": "string"
+    },
+    "currency":
+    {
+        "allowed_values": "USD,CAD,CHF,INR,AUD,EUR",
+        "datatype": "number"
+    },
+    "chargeName":
+    {
+        "allowed_values": "Commission Charges,Late Charges,Surcharges,RTGS Charges",
+        "datatype": "string"
+    },
+    "paymentDetails":
+    {
+        "allowed_values": "via RTGS,via NEFT,Cash Payment,via Equity Bonds",
+        "datatype": "string"
+    },
+    "paymentStatus":
+    {
+        "allowed_values": "Awaiting ack,Submitted,Completed,Rejected,Declined",
+        "datatype": "string"
+    },
+    "amount":
+    {
+        "allowed_values": "12123.23,343431.11,211213.01,32313,900.60,2135.98",
+        "datatype": "number"
+    },
+    "productId":
+    {
+        "allowed_values": "Current Account (Staff),Savings Account (Staff),Current Account,Savings Account",
+        "datatype": "string"
+    },
+    "qwqwqww":
+    {
+        "allowed_values": "qqwwfg",
+        "datatype": "string"
+    },
+    "paymentTransferStatus":
+    {
+        "allowed_values": "Awaiting ack,Submitted,Completed,Rejected,Declined",
+        "datatype": "string"
+    },
+    "accountIBAN":
+    {
+        "allowed_values": "GB000121102012,GB00012110202321,GB10201020010,GB31213121111,GB23456732222,GB291839819919,US0010201012121,US001212121020101",
+        "datatype": "string"
+    },
+    "accountId":
+    {
+        "allowed_values": "50000,100000,112121,121212,34343434,5343443,2243244,22424221",
+        "datatype": "string"
+    },
+    "paymentTransferId":
+    {
+        "allowed_values": "PI1213552221,PI345765654423,PI325651212121,PI642321191911,PI2309302930313",
+        "datatype": "number"
+    },
+    "ledgerBalance":
+    {
+        "allowed_values": "234567,123456.065,123456,74434.01,113.093,131133.01,3231.09,424.81,53343.13,5353.91",
+        "datatype": "number"
+    },
+    "remittanceInformation":
+    {
+        "allowed_values": "via RTGS,via NEFT,Cash Payment,via Equity Bonds",
+        "datatype": "string"
+    },
+    "beneficiaryAccount":
+    {
+        "allowed_values": "50000,100000,112121,121212,34343434,5343443,2243244,22424221",
+        "datatype": "number"
+    },
+    "debtorReference":
+    {
+        "allowed_values": "1224213,221555,987553,2323565,677753543,2323323",
+        "datatype": "number"
+    },
+    "commissionAmount":
+    {
+        "allowed_values": "50,100,150,200,300,30,45,120",
+        "datatype": "number"
+    }
+}

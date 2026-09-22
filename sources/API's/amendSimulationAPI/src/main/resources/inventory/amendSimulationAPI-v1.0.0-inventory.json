@@ -1,0 +1,31 @@
+{
+  "key" : "amendSimulationAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "PUT",
+    "url" : "/product/fusion/aasimulationrunner/{id}",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "AA.SIMULATION.RUNNER,AA.API.FF.NEW.1.0.0"
+    } ],
+    "operationId" : "amendSimulationAPI",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "true"
+    },
+    "function" : "input"
+  } ],
+  "title" : "amendSimulationAPI",
+  "description" : "amendSimulationAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : true
+}

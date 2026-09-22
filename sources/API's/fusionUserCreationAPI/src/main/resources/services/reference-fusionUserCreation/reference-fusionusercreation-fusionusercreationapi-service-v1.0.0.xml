@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="reference-fusionUserCreation-fusionUserCreationAPI.service.v1.0.0">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="fusionUserCreationAPI-v1.0.0-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1.0.0/reference/fusionUserCreation" produces="application/json" id="reference-fusionUserCreation.service.restlet">
+        <put uri="/{id}" id="fusionUserCreationAPI">
+            <param name="id" type="path" required="true"/>
+            <to uri="direct-vm:reference-fusionUserCreation.v1.0.0.fusionUserCreationAPI"/>
+        </put>
+    </rest>
+    <route id="direct-vm.reference-fusionUserCreation.v1.0.0.fusionUserCreationAPI">
+        <from uri="direct-vm:reference-fusionUserCreation.v1.0.0.fusionUserCreationAPI"/>
+        <setProperty name="operationSecurity">
+            <constant>Public</constant>
+        </setProperty>
+        <setProperty name="appendFields">
+            <constant>false</constant>
+        </setProperty>
+        <setProperty name="extensibility">
+            <constant>true</constant>
+        </setProperty>
+        <setProperty name="target">
+            <constant>USER,EB.API.CREATE.1.1.0</constant>
+        </setProperty>
+        <setProperty name="mapping">
+            <constant>model</constant>
+        </setProperty>
+        <setProperty name="recordid">
+            <header>id</header>
+        </setProperty>
+        <setProperty name="validate_only">
+            <header>validate_only</header>
+        </setProperty>
+        <setProperty name="ignoreReplace">
+            <constant>true</constant>
+        </setProperty>
+        <process ref="t24VersionProcessor"/>
+    </route>
+    <route id="direct.mockResponder">
+        <from uri="direct:mockResponder"/>
+        <process ref="mockResponder"/>
+    </route>
+</camelContext>
+
+</beans>

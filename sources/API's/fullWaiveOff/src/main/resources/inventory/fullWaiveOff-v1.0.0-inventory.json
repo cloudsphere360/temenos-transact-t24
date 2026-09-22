@@ -1,0 +1,31 @@
+{
+  "key" : "fullWaiveOff",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/party/Fusion/FullWaiveOff",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.WRT.CHG.OFF.ACTIVITY,FULL.WAIVE.OFF.API.1.0.0"
+    } ],
+    "operationId" : "fusionwriteoff",
+    "operationSecurity" : "Public",
+    "summary" : "fusionwriteoff",
+    "description" : "fusionwriteoff",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fullWaiveOff",
+  "description" : "fullWaiveOff",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

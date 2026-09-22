@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.ibm.ejs.models.base.bindings.webappbnd:WebAppBinding xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:com.ibm.ejs.models.base.bindings.webappbnd="webappbnd.xmi" xmi:id="WebAppBinding_1" virtualHostName="default_host">
+  <webapp href="WEB-INF/web.xml#WebApp"/>
+  <resRefBindings xmi:id="ResourceRefBinding_t24ConnectionFactory" jndiName="jca/t24ConnectionFactory">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_t24ConnectionFactory"/>
+  </resRefBindings>
+
+  <resRefBindings xmi:id="ResourceRefBinding_jmsConnectionFactory" jndiName="ConnectionFactory">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_jmsConnectionFactory"/>
+  </resRefBindings>
+  
+  <resRefBindings xmi:id="ResourceRefBinding_t24IRISIntQueue" jndiName="jms/t24IRISIntQueue">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_t24IRISIntQueue"/>
+  </resRefBindings>
+  <resRefBindings xmi:id="ResourceRefBinding_t24IRISIntReplyQueue" jndiName="jms/t24IRISIntReplyQueue">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_t24IRISIntReplyQueue"/>
+  </resRefBindings>
+  
+  <resRefBindings xmi:id="ResourceRefBinding_t24IRISExtQueue" jndiName="jms/t24IRISExtQueue">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_t24IRISExtQueue"/>
+  </resRefBindings>
+  <resRefBindings xmi:id="ResourceRefBinding_t24IRISExtReplyQueue" jndiName="jms/t24IRISExtReplyQueue">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_t24IRISExtReplyQueue"/>
+  </resRefBindings>
+  
+   <resRefBindings xmi:id="ResourceRefBinding_t24AAExtQueue" jndiName="jms/t24AAExtQueue">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_t24AAExtQueue"/>
+  </resRefBindings>
+  <resRefBindings xmi:id="ResourceRefBinding_t24AAExtReplyQueue" jndiName="jms/t24AAExtReplyQueue">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_t24AAExtReplyQueue"/>
+  </resRefBindings>
+  
+  <resRefBindings xmi:id="ResourceRefBinding_t24AAIntQueue" jndiName="jms/t24AAIntQueue">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_t24AAIntQueue"/>
+  </resRefBindings>
+  <resRefBindings xmi:id="ResourceRefBinding_t24AAIntReplyQueue" jndiName="jms/t24AAIntReplyQueue">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_t24AAIntReplyQueue"/>
+  </resRefBindings>
+  
+<!--   <resRefBindings xmi:id="ResourceRefBinding_t24IRISMetaDataQueue" jndiName="jms/t24IRISMetaDataQueue">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_t24IRISMetaDataQueue"/>
+  </resRefBindings>
+  <resRefBindings xmi:id="ResourceRefBinding_t24IRISMetaDataReplyQueue" jndiName="jms/t24IRISMetaDataReplyQueue">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_t24IRISMetaDataReplyQueue"/>
+  </resRefBindings> -->
+
+</com.ibm.ejs.models.base.bindings.webappbnd:WebAppBinding>

@@ -1,0 +1,44 @@
+{
+  "key" : "fusionCollectionSheetAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "GET",
+    "url" : "/reference/fusionCollectionSheet",
+    "resources" : [ {
+      "resourceType" : "Query",
+      "key" : "NOFILE.EB.COLLECTION.DETS.API.1.0.0",
+      "selections" : [ {
+        "field" : "RO.EMP.ID",
+        "operand" : "EQ",
+        "param" : "roEmployerId",
+        "type" : "string"
+      }, {
+        "field" : "BM.EMP.ID",
+        "operand" : "EQ",
+        "param" : "bmEmployerId",
+        "type" : "string"
+      }, {
+        "field" : "DEMAND.DATE",
+        "operand" : "EQ",
+        "param" : "demandDate",
+        "type" : "string"
+      } ]
+    } ],
+    "operationId" : "fusionCollectionSheet",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false"
+    }
+  } ],
+  "title" : "fusionCollectionSheetAPI",
+  "description" : "fusionCollectionSheetAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

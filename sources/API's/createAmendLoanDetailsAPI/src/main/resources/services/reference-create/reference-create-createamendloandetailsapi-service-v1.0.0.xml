@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="reference-create-createAmendLoanDetailsAPI.service.v1.0.0">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="createAmendLoanDetailsAPI-v1.0.0-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1.0.0/reference/create" produces="application/json" id="reference-create.service.restlet">
+        <put uri="/fusionloandetails/{id}" id="createAmendLoanDetails">
+            <param name="id" type="path" required="true"/>
+            <to uri="direct-vm:reference-create.v1.0.0.createAmendLoanDetails"/>
+        </put>
+    </rest>
+    <route id="direct-vm.reference-create.v1.0.0.createAmendLoanDetails">
+        <from uri="direct-vm:reference-create.v1.0.0.createAmendLoanDetails"/>
+        <setProperty name="operationSecurity">
+            <constant>Public</constant>
+        </setProperty>
+        <setProperty name="appendFields">
+            <constant>false</constant>
+        </setProperty>
+        <setProperty name="extensibility">
+            <constant>true</constant>
+        </setProperty>
+        <setProperty name="target">
+            <constant>EB.FF.LOAN.DETAILS,FF.API.LOAN.DETAILS.1.0.0</constant>
+        </setProperty>
+        <setProperty name="mapping">
+            <constant>model</constant>
+        </setProperty>
+        <setProperty name="recordid">
+            <header>id</header>
+        </setProperty>
+        <setProperty name="validate_only">
+            <header>validate_only</header>
+        </setProperty>
+        <setProperty name="ignoreReplace">
+            <constant>false</constant>
+        </setProperty>
+        <process ref="t24VersionProcessor"/>
+    </route>
+    <route id="direct.mockResponder">
+        <from uri="direct:mockResponder"/>
+        <process ref="mockResponder"/>
+    </route>
+</camelContext>
+
+</beans>

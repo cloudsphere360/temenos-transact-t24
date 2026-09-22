@@ -1,0 +1,31 @@
+{
+  "key" : "confirmDeath",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "PUT",
+    "url" : "/party/customers/confirm/{id}",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "CUSTOMER,DOD.STATUS.API.1.0.0"
+    } ],
+    "operationId" : "updateDeathStatus",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "updateDeathStatus",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "true"
+    },
+    "function" : "input"
+  } ],
+  "title" : "confirmDeath",
+  "description" : "confirmDeath",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

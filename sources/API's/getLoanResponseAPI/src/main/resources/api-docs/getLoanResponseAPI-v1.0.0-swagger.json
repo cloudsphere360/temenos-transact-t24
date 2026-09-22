@@ -1,0 +1,420 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "getLoanResponseAPI",
+    "version" : "v1.0.0",
+    "title" : "getLoanResponseAPI"
+  },
+  "host" : "api.server.com",
+  "basePath" : "/api/v1.0.0/",
+  "tags" : [ {
+    "name" : "RETAIL"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "security" : [ {
+    "basicAuth" : [ ]
+  }, {
+    "apiKey" : [ ]
+  } ],
+  "paths" : {
+    "/reference/fusion/loanResponse" : {
+      "get" : {
+        "tags" : [ "RETAIL" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "getLoanResponseAPI",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "simulationId",
+          "in" : "query",
+          "description" : "Indicates the Id generated during the simulation of an activity",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page_size",
+          "in" : "query",
+          "description" : "The total number of records per page",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "page_start",
+          "in" : "query",
+          "description" : "The record from which the response should be displayed",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "page_token",
+          "in" : "query",
+          "description" : "Unique id expected to get as part of response from Transact on every enquiry request",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "credentials",
+          "in" : "header",
+          "description" : "Username and password to authenticate the API against core-banking.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "companyId",
+          "in" : "header",
+          "description" : "Identifier of the lead company of the underlying Entity/Company/Branch for the respective contract for customer data protection purposes. Example US0010001.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "deviceId",
+          "in" : "header",
+          "description" : "Identifies the device type",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "userRole",
+          "in" : "header",
+          "description" : "User who initiated the transaction",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "disablePagination",
+          "in" : "header",
+          "description" : "Indicates the pagination header attributes availability. If set to 'true', it fetches all the data",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "LoanResponseAPIResponse",
+            "schema" : {
+              "$ref" : "#/definitions/LoanResponseAPIResponse"
+            }
+          },
+          "default" : {
+            "description" : "QueryErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/QueryErrorResponse"
+            }
+          },
+          "400" : {
+            "description" : "BusinessQueryErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/BusinessQueryErrorResponse"
+            }
+          },
+          "500" : {
+            "description" : "SystemQueryErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/SystemQueryErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "basicAuth" : {
+      "type" : "basic"
+    },
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "QueryHeader" : {
+      "properties" : {
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the API(success/failed)"
+        },
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "T24_time" : {
+              "type" : "integer",
+              "format" : "int32",
+              "description" : "Time taken to response by Transact"
+            },
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            },
+            "requestParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the request by IRIS"
+            },
+            "responseParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the response by IRIS"
+            }
+          }
+        },
+        "page_size" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The total number of records per page"
+        },
+        "page_start" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The record from which the response should be displayed"
+        },
+        "total_size" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The total number of records present"
+        },
+        "page_token" : {
+          "type" : "string",
+          "description" : "Unique id expected to get as part of response from Transact on every enquiry request"
+        }
+      }
+    },
+    "LoanResponseAPIResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/QueryHeader"
+        },
+        "body" : {
+          "$ref" : "#/definitions/LoanResponseAPIResponseBody"
+        }
+      },
+      "description" : "LoanResponseAPIResponse"
+    },
+    "LoanResponseAPIResponseBody" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "properties" : {
+          "simulationId" : {
+            "type" : "string",
+            "description" : "Indicates the Id generated during the simulation of an activity",
+            "maxLength" : 35
+          },
+          "arrangementId" : {
+            "type" : "string",
+            "description" : "Indicates an unique identifier of an account"
+          },
+          "lmsproduct" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "losproduct" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "noOfEmi" : {
+            "type" : "number",
+            "description" : ""
+          },
+          "paymentFrequency" : {
+            "type" : "string",
+            "description" : "The frequency at which a payment is required to be generated"
+          },
+          "tenure" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "firstDemandDate" : {
+            "type" : "string",
+            "format" : "date",
+            "description" : ""
+          },
+          "firstinstallmentDate" : {
+            "type" : "string",
+            "format" : "date",
+            "description" : ""
+          },
+          "emiAmount" : {
+            "type" : "number",
+            "description" : ""
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Contains status of the data rights request.Allowed values are INITIATED, INPROGESS, EXTENDED, COMPLETED, REJECTED."
+          },
+          "customerName" : {
+            "type" : "string",
+            "description" : "Indicates the name of the customer. Originator is the party who requests the payment cancellation."
+          },
+          "guarantorName" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "processingFee" : {
+            "type" : "number",
+            "description" : ""
+          },
+          "insuranceFee" : {
+            "type" : "number",
+            "description" : ""
+          },
+          "centre" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "group" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "village" : {
+            "type" : "string",
+            "description" : "Contains the village where the property is located"
+          },
+          "date" : {
+            "type" : "string",
+            "format" : "date",
+            "description" : "Indicates the date on which activity was performed"
+          },
+          "totalDue" : {
+            "type" : "number",
+            "description" : "This amount represents the total due amount for that period.",
+            "maximum" : 35
+          },
+          "principal" : {
+            "type" : "number",
+            "description" : "The principle amount"
+          },
+          "interest" : {
+            "type" : "number",
+            "description" : "Interest amount"
+          },
+          "charge" : {
+            "type" : "number",
+            "description" : "The charges or fees for this transaction"
+          },
+          "tax" : {
+            "type" : "number",
+            "description" : "Indicates the Identifier of the tax conditions"
+          },
+          "totalPymt" : {
+            "type" : "number",
+            "description" : ""
+          },
+          "outstanding" : {
+            "type" : "number",
+            "description" : "The remaining monetary amount on a loan"
+          },
+          "extensions" : {
+            "type" : "object",
+            "description" : "Indicates the extension data"
+          }
+        }
+      }
+    },
+    "ErrorHeader" : {
+      "properties" : {
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the API(success/failed)"
+        },
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "T24_time" : {
+              "type" : "integer",
+              "format" : "int32",
+              "description" : "Time taken to response by Transact"
+            },
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            },
+            "requestParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the request by IRIS"
+            },
+            "responseParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the response by IRIS"
+            }
+          }
+        }
+      }
+    },
+    "QueryErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/QueryErrorResponseBody"
+        }
+      },
+      "description" : "QueryErrorResponse"
+    },
+    "QueryErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "The identifier of the error message"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "The actual Transact error message "
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: "
+        }
+      }
+    },
+    "BusinessQueryErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/BusinessQueryErrorResponseBody"
+        }
+      },
+      "description" : "BusinessQueryErrorResponse"
+    },
+    "BusinessQueryErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "The identifier of the error message"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "The actual Transact error message for bad requests"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: Business"
+        }
+      }
+    },
+    "SystemQueryErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/SystemQueryErrorResponseBody"
+        }
+      },
+      "description" : "SystemQueryErrorResponse"
+    },
+    "SystemQueryErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "The identifier of the error message"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "The actual Transact error message caused by server"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: System"
+        }
+      }
+    }
+  }
+}

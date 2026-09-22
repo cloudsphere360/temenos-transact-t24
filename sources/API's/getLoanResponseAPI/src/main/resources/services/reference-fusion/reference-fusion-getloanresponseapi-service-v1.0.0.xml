@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="reference-fusion-getLoanResponseAPI.service.v1.0.0">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="getLoanResponseAPI-v1.0.0-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1.0.0/reference/fusion" produces="application/json" id="reference-fusion.service.restlet">
+        <get uri="/loanResponse" id="getLoanResponseAPI">
+            <to uri="direct-vm:reference-fusion.v1.0.0.getLoanResponseAPI"/>
+        </get>
+    </rest>
+    <route id="direct-vm.reference-fusion.v1.0.0.getLoanResponseAPI">
+        <from uri="direct-vm:reference-fusion.v1.0.0.getLoanResponseAPI"/>
+        <setProperty name="operationSecurity">
+            <constant>Public</constant>
+        </setProperty>
+        <setProperty name="extensibility">
+            <constant>true</constant>
+        </setProperty>
+        <setProperty name="target">
+            <constant>NOFILE.API.FF.REPAY.SCHEDULE.1.0.0</constant>
+        </setProperty>
+        <setProperty name="selection1">
+            <constant>SIMULATION.ID EQ {simulationId}</constant>
+        </setProperty>
+        <process ref="t24EnquiryProcessor"/>
+    </route>
+    <route id="direct.mockResponder">
+        <from uri="direct:mockResponder"/>
+        <process ref="mockResponder"/>
+    </route>
+</camelContext>
+
+</beans>

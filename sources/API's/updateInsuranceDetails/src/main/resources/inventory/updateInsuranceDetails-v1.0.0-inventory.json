@@ -1,0 +1,31 @@
+{
+  "key" : "updateInsuranceDetails",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "PUT",
+    "url" : "/party/customers/{id}/insurance",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "CUSTOMER,DEATH.NOTIFICATION.API.1.0.0"
+    } ],
+    "operationId" : "updateInsuranceClaim",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "updateCustomerDetailsForInsurance",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "true"
+    },
+    "function" : "input"
+  } ],
+  "title" : "updateInsuranceDetails",
+  "description" : "updateInsuranceDetails",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

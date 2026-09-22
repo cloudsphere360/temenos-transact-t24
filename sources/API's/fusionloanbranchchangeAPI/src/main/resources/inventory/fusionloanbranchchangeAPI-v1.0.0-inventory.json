@@ -1,0 +1,31 @@
+{
+  "key" : "fusionloanbranchchangeAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/product/fusionloanbranchchange",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.COMPANY.CHANGE,FF.API.INPUT.1.0.0"
+    } ],
+    "operationId" : "fusionloanbranchchange",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusionloanbranchchangeAPI",
+  "description" : "fusionloanbranchchangeAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

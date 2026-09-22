@@ -1,0 +1,40 @@
+{
+  "key" : "fusionPayoffAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/product/fusionPayoff",
+    "resources" : [ {
+      "resourceType" : "Activity",
+      "key" : "FF.EMERGENCY.GROUP",
+      "product" : "all",
+      "productGroup" : "FF.EMERGENCY.GROUP",
+      "productLine" : "LENDING",
+      "activity" : "LENDING-CALCULATE-PAYOFF",
+      "actualActivity" : "LENDING-CALCULATE-PAYOFF",
+      "simulation" : true,
+      "activityVersion" : "FF.API.PAYOFF.1.0.0"
+    } ],
+    "operationId" : "fusionPayoffAPI",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false",
+      "sampleDataMapping" : "{\"200\":{}}",
+      "verbosity" : "Minimal"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusionPayoffAPI",
+  "description" : "fusionPayoffAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

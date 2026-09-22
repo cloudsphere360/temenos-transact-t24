@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    *******************************************************************************
+    * Copyright © Temenos Headquarters SA 2021. All rights reserved.
+    *******************************************************************************
+
+-->
+<pdp
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://authzforce.github.io/core/xmlns/pdp/8"
+	xmlns:ext="http://authzforce.github.io/core/xmlns/ext/callback/java"
+	version="8.1">
+	<policyProvider
+		id="refPolicyProvider"
+		xsi:type="ext:CallbackPolicyProviderDescriptor"
+		callbackClass="com.temenos.irf.core.xacml.authz.EnvironmentBasedPolicyProvider" />
+	<rootPolicyRef policySet="true">default</rootPolicyRef>
+</pdp>

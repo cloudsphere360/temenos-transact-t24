@@ -1,0 +1,461 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "fusionCollectionResponseAPI",
+    "version" : "v1.0.0",
+    "title" : "fusionCollectionResponseAPI"
+  },
+  "host" : "api.server.com",
+  "basePath" : "/api/v1.0.0/",
+  "tags" : [ {
+    "name" : "RETAIL"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "security" : [ {
+    "basicAuth" : [ ]
+  }, {
+    "apiKey" : [ ]
+  } ],
+  "paths" : {
+    "/reference/fusionCollectionResponse" : {
+      "get" : {
+        "tags" : [ "RETAIL" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "fusionCollectionResponse",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "transactionId",
+          "in" : "query",
+          "description" : "Unique transaction identifier for retrieving the details of the transaction. For example: FT0102030333 etc.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page_size",
+          "in" : "query",
+          "description" : "The total number of records per page",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "page_start",
+          "in" : "query",
+          "description" : "The record from which the response should be displayed",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "page_token",
+          "in" : "query",
+          "description" : "Unique id expected to get as part of response from Transact on every enquiry request",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "credentials",
+          "in" : "header",
+          "description" : "Username and password to authenticate the API against core-banking.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "companyId",
+          "in" : "header",
+          "description" : "Identifier of the lead company of the underlying Entity/Company/Branch for the respective contract for customer data protection purposes. Example US0010001.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "deviceId",
+          "in" : "header",
+          "description" : "Identifies the device type",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "userRole",
+          "in" : "header",
+          "description" : "User who initiated the transaction",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "disablePagination",
+          "in" : "header",
+          "description" : "Indicates the pagination header attributes availability. If set to 'true', it fetches all the data",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "CollectionResponseResponse",
+            "schema" : {
+              "$ref" : "#/definitions/CollectionResponseResponse"
+            }
+          },
+          "default" : {
+            "description" : "QueryErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/QueryErrorResponse"
+            }
+          },
+          "400" : {
+            "description" : "BusinessQueryErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/BusinessQueryErrorResponse"
+            }
+          },
+          "500" : {
+            "description" : "SystemQueryErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/SystemQueryErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "basicAuth" : {
+      "type" : "basic"
+    },
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "QueryHeader" : {
+      "properties" : {
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the API(success/failed)"
+        },
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "T24_time" : {
+              "type" : "integer",
+              "format" : "int32",
+              "description" : "Time taken to response by Transact"
+            },
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            },
+            "requestParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the request by IRIS"
+            },
+            "responseParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the response by IRIS"
+            }
+          }
+        },
+        "page_size" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The total number of records per page"
+        },
+        "page_start" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The record from which the response should be displayed"
+        },
+        "total_size" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The total number of records present"
+        },
+        "page_token" : {
+          "type" : "string",
+          "description" : "Unique id expected to get as part of response from Transact on every enquiry request"
+        }
+      }
+    },
+    "CollectionResponseResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/QueryHeader"
+        },
+        "body" : {
+          "$ref" : "#/definitions/CollectionResponseResponseBody"
+        }
+      },
+      "description" : "CollectionResponseResponse"
+    },
+    "CollectionResponseResponseBody" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "properties" : {
+          "lmsInternalAccount" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 50
+          },
+          "loanAccount" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 50
+          },
+          "amount" : {
+            "type" : "string",
+            "description" : "This is the payment amount",
+            "maxLength" : 70
+          },
+          "currency" : {
+            "type" : "string",
+            "description" : "Identifies the currency. E.g. USD, GBP etc",
+            "maxLength" : 15
+          },
+          "debitValueDate" : {
+            "type" : "string",
+            "description" : "Date on which the amount will be debited for settlement",
+            "maxLength" : 25
+          },
+          "cerditValueDate" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 25
+          },
+          "processingDate" : {
+            "type" : "string",
+            "description" : "The date when payment instruction is processed in system.",
+            "maxLength" : 25
+          },
+          "collectionReceiptNum" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 70
+          },
+          "collectionStatus" : {
+            "type" : "string",
+            "description" : "Contains the status of collection amount. Possible value are two digit numeric such as 12,83 etc, 12 - received. 83 - pending.",
+            "maxLength" : 70
+          },
+          "postedBy" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 70
+          },
+          "postedByLegalName" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 70
+          },
+          "postedTime" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 70
+          },
+          "paymentMode" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 50
+          },
+          "bankAccountNumber" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 70
+          },
+          "ifscCode" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 70
+          },
+          "fusionTransReference" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 70
+          },
+          "foreclosureReason" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 70
+          },
+          "narration" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 70
+          },
+          "collectionType" : {
+            "type" : "string",
+            "description" : "Indicates the type of collection",
+            "maxLength" : 50
+          },
+          "collectionServiceProvider" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 70
+          },
+          "totalOutstandingBefore" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 40
+          },
+          "duePrincipalBefore" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 40
+          },
+          "dueInterestBefore" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 40
+          },
+          "pendingAmountBefore" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 40
+          },
+          "parkedAmountBefore" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 40
+          },
+          "principalOutstandingAfter" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 35
+          },
+          "interestOutstandingAfter" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 40
+          },
+          "totalOutstandingAfter" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 40
+          },
+          "emiPendingAmtAfter" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 40
+          },
+          "parkedAmountAfter" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 40
+          },
+          "extensions" : {
+            "type" : "object",
+            "description" : "Indicates the extension data"
+          }
+        }
+      }
+    },
+    "ErrorHeader" : {
+      "properties" : {
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the API(success/failed)"
+        },
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "T24_time" : {
+              "type" : "integer",
+              "format" : "int32",
+              "description" : "Time taken to response by Transact"
+            },
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            },
+            "requestParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the request by IRIS"
+            },
+            "responseParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the response by IRIS"
+            }
+          }
+        }
+      }
+    },
+    "QueryErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/QueryErrorResponseBody"
+        }
+      },
+      "description" : "QueryErrorResponse"
+    },
+    "QueryErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "The identifier of the error message"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "The actual Transact error message "
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: "
+        }
+      }
+    },
+    "BusinessQueryErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/BusinessQueryErrorResponseBody"
+        }
+      },
+      "description" : "BusinessQueryErrorResponse"
+    },
+    "BusinessQueryErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "The identifier of the error message"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "The actual Transact error message for bad requests"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: Business"
+        }
+      }
+    },
+    "SystemQueryErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/SystemQueryErrorResponseBody"
+        }
+      },
+      "description" : "SystemQueryErrorResponse"
+    },
+    "SystemQueryErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "The identifier of the error message"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "The actual Transact error message caused by server"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: System"
+        }
+      }
+    }
+  }
+}

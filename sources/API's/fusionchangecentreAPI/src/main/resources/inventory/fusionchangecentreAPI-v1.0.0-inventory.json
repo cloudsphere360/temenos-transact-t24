@@ -1,0 +1,66 @@
+{
+  "key" : "fusionchangecentreAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/reference/fusionchangecentre",
+    "resources" : [ {
+      "resourceType" : "Activity",
+      "key" : "FF.EMERGENCY.GROUP",
+      "product" : "all",
+      "productGroup" : "FF.EMERGENCY.GROUP",
+      "productLine" : "LENDING",
+      "activity" : "LENDING-UPDATE-ACCOUNT",
+      "actualActivity" : "LENDING-UPDATE-ACCOUNT",
+      "requestPayload" : [ {
+        "id" : "AA.ARR.ACCOUNT,AA.API.FF.AL.SIMPLE.1.0.0",
+        "recordsPerPage" : null,
+        "fieldsPerLine" : null,
+        "language" : null,
+        "displayName" : "Account",
+        "dismissPrettyPrintLabel" : false,
+        "noInputFields" : [ ],
+        "mandatoryFields" : [ ],
+        "noDisplayFields" : [ ],
+        "fields" : [ ],
+        "extensionFields" : [ ]
+      } ],
+      "responsePayload" : [ {
+        "id" : "AA.ARR.ACCOUNT,AA.API.FF.AL.SIMPLE.1.0.0",
+        "recordsPerPage" : null,
+        "fieldsPerLine" : null,
+        "language" : null,
+        "displayName" : "Account",
+        "dismissPrettyPrintLabel" : false,
+        "noInputFields" : [ ],
+        "mandatoryFields" : [ ],
+        "noDisplayFields" : [ ],
+        "fields" : [ ],
+        "extensionFields" : [ ]
+      } ],
+      "activityVersion" : "AA.API.NEW.1.0.0",
+      "productResponseSameAsRequest" : true
+    } ],
+    "operationId" : "fusionchangecentre",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false",
+      "sampleDataMapping" : "{\"200\":{}}",
+      "verbosity" : "Minimal"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusionchangecentreAPI",
+  "description" : "fusionchangecentreAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

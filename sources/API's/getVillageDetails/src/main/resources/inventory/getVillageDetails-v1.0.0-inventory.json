@@ -1,0 +1,39 @@
+{
+  "key" : "getVillageDetails",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "GET",
+    "url" : "/reference/fusion/village/details/{id}",
+    "resources" : [ {
+      "resourceType" : "Query",
+      "key" : "FFL.EB.FF.VILLAGE.API.1.0.0",
+      "selections" : [ {
+        "field" : "@ID",
+        "operand" : "EQ",
+        "param" : "id",
+        "type" : "string"
+      }, {
+        "field" : "VILLAGE.NAME",
+        "operand" : "EQ",
+        "param" : "Village_Name",
+        "type" : "string"
+      } ]
+    } ],
+    "operationId" : "getVillageDetails",
+    "operationSecurity" : "Public",
+    "summary" : "getVillageDetails",
+    "description" : "getVillageDetails",
+    "tags" : [ "OTHERS" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false"
+    }
+  } ],
+  "title" : "getVillageDetails",
+  "description" : "getVillageDetails",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : true
+}

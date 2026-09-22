@@ -1,0 +1,39 @@
+{
+  "key" : "fusionCreateGroupDetails",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/reference/fusion/create/group/details/{id}",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.GROUPS,INPUT.API.1.0.0",
+      "fields" : [ {
+        "target" : "recordid",
+        "parameterName" : "id",
+        "constant" : null,
+        "source" : null,
+        "destination" : null,
+        "mapping" : false
+      } ]
+    } ],
+    "operationId" : "fusionCreateGroupDetails",
+    "operationSecurity" : "Public",
+    "summary" : "fusionCreateGroupDetails",
+    "description" : "fusionCreateGroupDetails",
+    "tags" : [ "OTHERS" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusionCreateGroupDetails",
+  "description" : "fusionCreateGroupDetails",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : true
+}

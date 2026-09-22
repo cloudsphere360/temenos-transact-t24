@@ -1,0 +1,31 @@
+{
+  "key" : "fusioncollectioncreation",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/reference/fusioncollectioncreation/",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "FUNDS.TRANSFER,EM.FF.LOAN.COLLECTION.API.1.0.0"
+    } ],
+    "operationId" : "fusioncollectioncreation",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusioncollectioncreation",
+  "description" : "fusioncollectioncreation",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

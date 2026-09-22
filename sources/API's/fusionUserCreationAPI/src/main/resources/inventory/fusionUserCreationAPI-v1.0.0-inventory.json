@@ -1,0 +1,31 @@
+{
+  "key" : "fusionUserCreationAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "PUT",
+    "url" : "/reference/fusionUserCreation/{id}",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "USER,EB.API.CREATE.1.1.0"
+    } ],
+    "operationId" : "fusionUserCreationAPI",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "fusionUserCreationAPI",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "true"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusionUserCreationAPI",
+  "description" : "fusionUserCreationAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

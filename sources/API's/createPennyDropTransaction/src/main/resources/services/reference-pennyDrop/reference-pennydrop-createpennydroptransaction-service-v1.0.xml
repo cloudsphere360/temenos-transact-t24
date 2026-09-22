@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="reference-pennyDrop-createPennyDropTransaction.service.v1.0">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="createPennyDropTransaction-v1.0-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1.0/reference/pennyDrop" produces="application/json" id="reference-pennyDrop.service.restlet">
+        <post uri="/transaction" id="create">
+            <to uri="direct-vm:reference-pennyDrop.v1.0.create"/>
+        </post>
+    </rest>
+    <route id="direct-vm.reference-pennyDrop.v1.0.create">
+        <from uri="direct-vm:reference-pennyDrop.v1.0.create"/>
+        <to uri="direct-vm:reference-pennyDrop.v1.0.0.create"/>
+    </route>
+</camelContext>
+
+</beans>

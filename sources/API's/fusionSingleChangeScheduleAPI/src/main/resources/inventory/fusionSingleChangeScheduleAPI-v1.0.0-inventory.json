@@ -1,0 +1,31 @@
+{
+  "key" : "fusionSingleChangeScheduleAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/reference/fusionSingleChangeSchedule",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.LOAN.ACTIVITY,FF.API.CHG.SCHED.SINGLE.1.0.0"
+    } ],
+    "operationId" : "fusionSingleChangeScheduleAPI",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusionSingleChangeScheduleAPI",
+  "description" : "fusionSingleChangeScheduleAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

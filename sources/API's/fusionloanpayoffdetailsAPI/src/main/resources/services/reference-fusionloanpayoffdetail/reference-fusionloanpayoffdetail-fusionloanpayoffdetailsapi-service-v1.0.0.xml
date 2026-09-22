@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="reference-fusionloanpayoffdetail-fusionloanpayoffdetailsAPI.service.v1.0.0">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="fusionloanpayoffdetailsAPI-v1.0.0-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1.0.0/reference/fusionloanpayoffdetail" produces="application/json" id="reference-fusionloanpayoffdetail.service.restlet">
+        <get uri="/" id="fusionloanpayoffdetailsAPI">
+            <to uri="direct-vm:reference-fusionloanpayoffdetail.v1.0.0.fusionloanpayoffdetailsAPI"/>
+        </get>
+    </rest>
+    <route id="direct-vm.reference-fusionloanpayoffdetail.v1.0.0.fusionloanpayoffdetailsAPI">
+        <from uri="direct-vm:reference-fusionloanpayoffdetail.v1.0.0.fusionloanpayoffdetailsAPI"/>
+        <setProperty name="operationSecurity">
+            <constant>Public</constant>
+        </setProperty>
+        <setProperty name="extensibility">
+            <constant>true</constant>
+        </setProperty>
+        <setProperty name="target">
+            <constant>AA.API.PAYOFF.DETAILS.4.0.0</constant>
+        </setProperty>
+        <setProperty name="selection1">
+            <constant>ARR.ID EQ {arrangementId}</constant>
+        </setProperty>
+        <setProperty name="selection2">
+            <constant>SIM.REF EQ {simulationReference}</constant>
+        </setProperty>
+        <setProperty name="selection3">
+            <constant>ADJUSTABLE.PROP EQ {adjustProperty}</constant>
+        </setProperty>
+        <process ref="t24EnquiryProcessor"/>
+    </route>
+    <route id="direct.mockResponder">
+        <from uri="direct:mockResponder"/>
+        <process ref="mockResponder"/>
+    </route>
+</camelContext>
+
+</beans>

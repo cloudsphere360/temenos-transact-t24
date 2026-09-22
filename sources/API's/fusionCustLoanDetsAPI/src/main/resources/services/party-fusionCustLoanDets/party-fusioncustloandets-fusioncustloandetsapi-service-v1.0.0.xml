@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="party-fusionCustLoanDets-fusionCustLoanDetsAPI.service.v1.0.0">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="fusionCustLoanDetsAPI-v1.0.0-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1.0.0/party/fusionCustLoanDets" produces="application/json" id="party-fusionCustLoanDets.service.restlet">
+        <get uri="/" id="fusionCustLoanDetsAPI">
+            <to uri="direct-vm:party-fusionCustLoanDets.v1.0.0.fusionCustLoanDetsAPI"/>
+        </get>
+    </rest>
+    <route id="direct-vm.party-fusionCustLoanDets.v1.0.0.fusionCustLoanDetsAPI">
+        <from uri="direct-vm:party-fusionCustLoanDets.v1.0.0.fusionCustLoanDetsAPI"/>
+        <setProperty name="operationSecurity">
+            <constant>Public</constant>
+        </setProperty>
+        <setProperty name="extensibility">
+            <constant>true</constant>
+        </setProperty>
+        <setProperty name="target">
+            <constant>FF.API.EM.SCV.FIND.ARRANGEMENT.AL.1.0.0</constant>
+        </setProperty>
+        <setProperty name="selection1">
+            <constant>CUSTOMER EQ {customer}</constant>
+        </setProperty>
+        <setProperty name="selection2">
+            <constant>ARRANGEMENT.ID EQ {arrangement}</constant>
+        </setProperty>
+        <process ref="t24EnquiryProcessor"/>
+    </route>
+    <route id="direct.mockResponder">
+        <from uri="direct:mockResponder"/>
+        <process ref="mockResponder"/>
+    </route>
+</camelContext>
+
+</beans>

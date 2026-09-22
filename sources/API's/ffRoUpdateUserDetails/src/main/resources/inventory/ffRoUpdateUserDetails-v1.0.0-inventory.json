@@ -1,0 +1,39 @@
+{
+  "key" : "ffRoUpdateUserDetails",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "PUT",
+    "url" : "/reference/fusion/update/roDetails/{id}",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.RO.USER,INPUT.API.1.0.0",
+      "fields" : [ {
+        "target" : "recordid",
+        "parameterName" : "id",
+        "constant" : null,
+        "source" : null,
+        "destination" : null,
+        "mapping" : false
+      } ]
+    } ],
+    "operationId" : "ffRoUpdateUserDetails",
+    "operationSecurity" : "Public",
+    "summary" : "ffRoUpdateUserDetails",
+    "description" : "",
+    "tags" : [ "OTHERS" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "ffRoUpdateUserDetails",
+  "description" : "ffRoUpdateUserDetails",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : true
+}

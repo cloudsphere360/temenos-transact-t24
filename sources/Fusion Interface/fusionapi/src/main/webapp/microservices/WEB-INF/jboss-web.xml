@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+<!--
+    <security-domain>java:/jaas/T24</security-domain>
+-->
+<!--Start - Enable the below security domain and valves configuration only when SSO with SAML and ADFS is enabled -->
+<!--<security-domain>tsp</security-domain>
+    <valve>   
+        <class-name>org.picketlink.identity.federation.bindings.tomcat.sp.ServiceProviderAuthenticator</class-name>
+    </valve> -->
+<!-- End -->
+
+<!-- 
+    For TAFC Uncomment the resource-ref below. 
+    <resource-ref>
+        <res-ref-name>jca/t24ConnectionFactory</res-ref-name>
+        <res-type>com.temenos.tocf.t24ra.T24ConnectionFactory</res-type>
+        <jndi-name>java:/jca/t24ConnectionFactory</jndi-name> -->  
+        <!--                        
+        For lower versions of JBoss(below EAP6) comment the line above and uncomment the line below.
+        <jndi-name>java:jca/t24ConnectionFactory</jndi-name>  
+        --> <!--        
+    </resource-ref>  
+-->
+<!-- <resource-ref>
+        <res-ref-name>jca/t24ConnectionFactory</res-ref-name>
+        <res-type>com.jbase.jremote.JConnectionFactory</res-type>
+        <jndi-name>java:/jca/t24ConnectionFactory</jndi-name>
+    </resource-ref> -->
+    
+    <resource-ref>
+        <res-ref-name>ConnectionFactory</res-ref-name>
+        <res-type>javax.jms.ConnectionFactory</res-type>
+        <jndi-name>java:/ConnectionFactory</jndi-name>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>queue/t24IRISIntQueue</res-ref-name>
+        <res-type>javax.jms.Queue</res-type>
+        <jndi-name>java:/queue/t24IRISIntQueue</jndi-name>
+        <!-- For lower versions of JBoss(below EAP6) comment the line above and uncomment the line below. -->
+        <!--         
+        <jndi-name>queue/t24BROWSERQueue</jndi-name>  
+        -->
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>queue/t24IRISIntReplyQueue</res-ref-name>
+        <res-type>javax.jms.Queue</res-type>
+        <jndi-name>java:/queue/t24IRISIntReplyQueue</jndi-name>   
+        <!-- For lower versions of JBoss(below EAP6) comment the line above and uncomment the line below. -->
+        <!--         
+        <jndi-name>queue/t24BROWSERReplyQueue</jndi-name>   
+        -->       
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>queue/t24IRISExtQueue</res-ref-name>
+        <res-type>javax.jms.Queue</res-type>
+        <jndi-name>java:/queue/t24IRISExtQueue</jndi-name>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>queue/t24IRISExtReplyQueue</res-ref-name>
+        <res-type>javax.jms.Queue</res-type>
+        <jndi-name>java:/queue/t24IRISExtReplyQueue</jndi-name>         
+    </resource-ref>
+    
+    <resource-ref>
+        <res-ref-name>queue/t24AAIntQueue</res-ref-name>
+        <res-type>javax.jms.Queue</res-type>
+        <jndi-name>java:/queue/t24AAIntQueue</jndi-name>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>queue/t24AAIntReplyQueue</res-ref-name>
+        <res-type>javax.jms.Queue</res-type>
+        <jndi-name>java:/queue/t24AAIntReplyQueue</jndi-name>         
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>queue/t24AAExtQueue</res-ref-name>
+        <res-type>javax.jms.Queue</res-type>
+        <jndi-name>java:/queue/t24AAExtQueue</jndi-name>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>queue/t24AAExtReplyQueue</res-ref-name>
+        <res-type>javax.jms.Queue</res-type>
+        <jndi-name>java:/queue/t24AAExtReplyQueue</jndi-name>         
+    </resource-ref>
+    
+<!-- remove the comment if queue conf is available for IRISMETADATA  -->    
+<!--     
+    <resource-ref>
+        <res-ref-name>queue/t24IRISMetaDataQueue</res-ref-name>
+        <res-type>javax.jms.Queue</res-type>
+        <jndi-name>java:/queue/t24IRISMetaDataQueue</jndi-name>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>queue/t24IRISMetaDataReplyQueue</res-ref-name>
+        <res-type>javax.jms.Queue</res-type>
+        <jndi-name>java:/queue/t24IRISMetaDataReplyQueue</jndi-name>         
+    </resource-ref> -->
+</jboss-web>
+

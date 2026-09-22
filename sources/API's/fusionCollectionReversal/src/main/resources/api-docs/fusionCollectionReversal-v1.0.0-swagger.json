@@ -1,0 +1,585 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "fusionCollectionReversal",
+    "version" : "v1.0.0",
+    "title" : "fusionCollectionReversal"
+  },
+  "host" : "api.server.com",
+  "basePath" : "/api/v1.0.0/",
+  "tags" : [ {
+    "name" : "RETAIL"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "security" : [ {
+    "basicAuth" : [ ]
+  }, {
+    "apiKey" : [ ]
+  } ],
+  "paths" : {
+    "/product/fusionCollection/reverse/{id}" : {
+      "delete" : {
+        "tags" : [ "RETAIL" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "reverse",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "body Payload",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/reverseDelete"
+          }
+        }, {
+          "name" : "validate_only",
+          "in" : "query",
+          "description" : "The identifier to indicate if it is set to only validate or not.",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "credentials",
+          "in" : "header",
+          "description" : "Username and password to authenticate the API against core-banking.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "companyId",
+          "in" : "header",
+          "description" : "Identifier of the lead company of the underlying Entity/Company/Branch for the respective contract for customer data protection purposes. Example US0010001.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "deviceId",
+          "in" : "header",
+          "description" : "Identifies the device type",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "userRole",
+          "in" : "header",
+          "description" : "User who initiated the transaction",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "reverseResponse",
+            "schema" : {
+              "$ref" : "#/definitions/reverseResponse"
+            }
+          },
+          "default" : {
+            "description" : "ScreenErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/ScreenErrorResponse"
+            }
+          },
+          "400" : {
+            "description" : "BusinessScreenErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/BusinessScreenErrorResponse"
+            }
+          },
+          "500" : {
+            "description" : "SystemScreenErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/SystemScreenErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "basicAuth" : {
+      "type" : "basic"
+    },
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "PayloadHeader" : {
+      "properties" : {
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            }
+          }
+        }
+      }
+    },
+    "reverseDelete" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/PayloadHeader"
+        }
+      },
+      "description" : "reverseDelete"
+    },
+    "ScreenHeader" : {
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The Identifier of the record created"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the API(success/failed)"
+        },
+        "transactionStatus" : {
+          "type" : "string",
+          "description" : "The status of the transaction"
+        },
+        "uniqueIdentifier" : {
+          "type" : "string",
+          "description" : "The unique identifier/Message Reference of the record created."
+        },
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "T24_time" : {
+              "type" : "integer",
+              "format" : "int32",
+              "description" : "Time taken to response by Transact"
+            },
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            },
+            "requestParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the request by IRIS"
+            },
+            "responseParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the response by IRIS"
+            }
+          }
+        }
+      }
+    },
+    "reverseResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ScreenHeader"
+        },
+        "body" : {
+          "$ref" : "#/definitions/reverseResponseBody"
+        }
+      },
+      "description" : "reverseResponse"
+    },
+    "reverseResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "lmsInternalAccount" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 36
+        },
+        "loanAccount" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 36
+        },
+        "amount" : {
+          "type" : "string",
+          "description" : "This is the payment amount",
+          "minLength" : 0,
+          "maxLength" : 18
+        },
+        "currency" : {
+          "type" : "string",
+          "description" : "Identifies the currency. E.g. USD, GBP etc",
+          "minLength" : 0,
+          "maxLength" : 3
+        },
+        "debitValueDate" : {
+          "type" : "string",
+          "description" : "Date on which the amount will be debited for settlement",
+          "minLength" : 0,
+          "maxLength" : 11
+        },
+        "creditValueDate" : {
+          "type" : "string",
+          "description" : "Reference quoted by the credit account for a payment",
+          "minLength" : 0,
+          "maxLength" : 11
+        },
+        "processingDate" : {
+          "type" : "string",
+          "description" : "The date when payment instruction is processed in system.",
+          "minLength" : 0,
+          "maxLength" : 11
+        },
+        "collReceiptNum" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "collectionStatus" : {
+          "type" : "string",
+          "description" : "Contains the status of collection amount. Possible value are two digit numeric such as 12,83 etc, 12 - received. 83 - pending.",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "postedBy" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 1,
+          "maxLength" : 70
+        },
+        "postedByLegalName" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 1,
+          "maxLength" : 70
+        },
+        "postedTime" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "paymentMode" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 1,
+          "maxLength" : 70
+        },
+        "bankAccountNum" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "ifscCode" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "transRefNo" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "foreclosureReason" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "narration" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "collectionType" : {
+          "type" : "string",
+          "description" : "Indicates the type of collection",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "collServiceProvider" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "totalOutstandingBefore" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 40
+        },
+        "principalOutstandingBefore" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 40
+        },
+        "interestOutstandingBefore" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 40
+        },
+        "overdueAmountBefore" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 40
+        },
+        "parkedAmountBefore" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 40
+        },
+        "transactionType" : {
+          "type" : "string",
+          "description" : "Identifies the transaction type applicable to the transaction being processed, i.e. outward or inward payment. For example: ACPX, OTPX etc.",
+          "minLength" : 0,
+          "maxLength" : 4
+        },
+        "paymentUserName" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "pymtbyThirdParty" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "upiRrn" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 12
+        },
+        "ffUrlLink" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "Override" : {
+          "type" : "string",
+          "description" : "The override message is captured  that was generated at the time of commitment of the transaction to the database.",
+          "minLength" : 0,
+          "maxLength" : 100
+        },
+        "recordStatus" : {
+          "type" : "string",
+          "description" : "General status of the record. Possible values: - null - authorised - IHLD - input, on hold - INAU - input, not authorised - INA2 - input, authorised, pending second authorisation - INAO - input, not authorised with blocking overrides - RNAU - reversed, not authorised - RNAO - reversed, not authorised with blocking overrides",
+          "minLength" : 0,
+          "maxLength" : 6
+        },
+        "currentNumber" : {
+          "type" : "string",
+          "description" : "To get the version record details",
+          "minLength" : 0,
+          "maxLength" : 6
+        },
+        "Inputter" : {
+          "type" : "string",
+          "description" : "The user identifier who input the transaction",
+          "minLength" : 0,
+          "maxLength" : 100
+        },
+        "Authoriser" : {
+          "type" : "string",
+          "description" : "This indicates the user who authorized the transaction.",
+          "minLength" : 0,
+          "maxLength" : 100
+        },
+        "dateTime" : {
+          "type" : "string",
+          "description" : "Contains the date and time separated by '-'",
+          "minLength" : 0,
+          "maxLength" : 15
+        },
+        "companyCode" : {
+          "type" : "string",
+          "description" : "The identifier of the underlying Entity/Company/Branch.",
+          "minLength" : 0,
+          "maxLength" : 11
+        },
+        "departmentCode" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 4
+        },
+        "extensions" : {
+          "type" : "object",
+          "description" : "Indicates the extensions"
+        }
+      }
+    },
+    "ErrorHeader" : {
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The Identifier of the record created"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the API(success/failed)"
+        },
+        "transactionStatus" : {
+          "type" : "string",
+          "description" : "The status of the transaction"
+        },
+        "uniqueIdentifier" : {
+          "type" : "string",
+          "description" : "The unique identifier/Message Reference of the record created."
+        },
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "T24_time" : {
+              "type" : "integer",
+              "format" : "int32",
+              "description" : "Time taken to response by Transact"
+            },
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            },
+            "requestParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the request by IRIS"
+            },
+            "responseParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the response by IRIS"
+            }
+          }
+        }
+      }
+    },
+    "ScreenErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/ScreenErrorResponseBody"
+        }
+      },
+      "description" : "ScreenErrorResponse"
+    },
+    "ScreenErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "errorDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fieldName" : {
+                "type" : "string",
+                "description" : "The name of the field"
+              },
+              "code" : {
+                "type" : "string",
+                "description" : "The identifier of the error message"
+              },
+              "message" : {
+                "type" : "string",
+                "description" : "The actual Transact error message "
+              }
+            }
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: "
+        }
+      }
+    },
+    "BusinessScreenErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/BusinessScreenErrorResponseBody"
+        }
+      },
+      "description" : "BusinessScreenErrorResponse"
+    },
+    "BusinessScreenErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "errorDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fieldName" : {
+                "type" : "string",
+                "description" : "The name of the field"
+              },
+              "code" : {
+                "type" : "string",
+                "description" : "The identifier of the error message"
+              },
+              "message" : {
+                "type" : "string",
+                "description" : "The actual Transact error message for bad requests"
+              }
+            }
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: Business"
+        }
+      }
+    },
+    "SystemScreenErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/SystemScreenErrorResponseBody"
+        }
+      },
+      "description" : "SystemScreenErrorResponse"
+    },
+    "SystemScreenErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "errorDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fieldName" : {
+                "type" : "string",
+                "description" : "The name of the field"
+              },
+              "code" : {
+                "type" : "string",
+                "description" : "The identifier of the error message"
+              },
+              "message" : {
+                "type" : "string",
+                "description" : "The actual Transact error message caused by server"
+              }
+            }
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: System"
+        }
+      }
+    }
+  }
+}

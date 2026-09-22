@@ -1,0 +1,39 @@
+{
+  "key" : "ffRoCreateUserDetails",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/reference/fusion/create/ro/details/{id}",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.RO.USER,INPUT.API.1.0.0",
+      "fields" : [ {
+        "target" : "recordid",
+        "parameterName" : "id",
+        "constant" : null,
+        "source" : null,
+        "destination" : null,
+        "mapping" : false
+      } ]
+    } ],
+    "operationId" : "ffRoCreateUserDetails",
+    "operationSecurity" : "Public",
+    "summary" : "ffRoCreateUserDetails",
+    "description" : "ffRoCreateUserDetails",
+    "tags" : [ "OTHERS" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "ffRoCreateUserDetails",
+  "description" : "ffRoCreateUserDetails",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : true
+}

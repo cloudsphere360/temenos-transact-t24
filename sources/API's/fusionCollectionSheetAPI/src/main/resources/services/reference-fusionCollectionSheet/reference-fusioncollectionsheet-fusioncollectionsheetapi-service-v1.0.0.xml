@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="reference-fusionCollectionSheet-fusionCollectionSheetAPI.service.v1.0.0">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="fusionCollectionSheetAPI-v1.0.0-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1.0.0/reference/fusionCollectionSheet" produces="application/json" id="reference-fusionCollectionSheet.service.restlet">
+        <get uri="/" id="fusionCollectionSheet">
+            <to uri="direct-vm:reference-fusionCollectionSheet.v1.0.0.fusionCollectionSheet"/>
+        </get>
+    </rest>
+    <route id="direct-vm.reference-fusionCollectionSheet.v1.0.0.fusionCollectionSheet">
+        <from uri="direct-vm:reference-fusionCollectionSheet.v1.0.0.fusionCollectionSheet"/>
+        <setProperty name="operationSecurity">
+            <constant>Public</constant>
+        </setProperty>
+        <setProperty name="extensibility">
+            <constant>true</constant>
+        </setProperty>
+        <setProperty name="target">
+            <constant>NOFILE.EB.COLLECTION.DETS.API.1.0.0</constant>
+        </setProperty>
+        <setProperty name="selection1">
+            <constant>RO.EMP.ID EQ {roEmployerId}</constant>
+        </setProperty>
+        <setProperty name="selection2">
+            <constant>BM.EMP.ID EQ {bmEmployerId}</constant>
+        </setProperty>
+        <setProperty name="selection3">
+            <constant>DEMAND.DATE EQ {demandDate}</constant>
+        </setProperty>
+        <process ref="t24EnquiryProcessor"/>
+    </route>
+    <route id="direct.mockResponder">
+        <from uri="direct:mockResponder"/>
+        <process ref="mockResponder"/>
+    </route>
+</camelContext>
+
+</beans>

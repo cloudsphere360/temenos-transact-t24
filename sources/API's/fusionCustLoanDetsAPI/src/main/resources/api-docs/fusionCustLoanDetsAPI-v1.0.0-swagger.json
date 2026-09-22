@@ -1,0 +1,468 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "fusionCustLoanDetsAPI",
+    "version" : "v1.0.0",
+    "title" : "fusionCustLoanDetsAPI"
+  },
+  "host" : "api.server.com",
+  "basePath" : "/api/v1.0.0/",
+  "tags" : [ {
+    "name" : "RETAIL"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "security" : [ {
+    "basicAuth" : [ ]
+  }, {
+    "apiKey" : [ ]
+  } ],
+  "paths" : {
+    "/party/fusionCustLoanDets" : {
+      "get" : {
+        "tags" : [ "RETAIL" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "fusionCustLoanDetsAPI",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "customer",
+          "in" : "query",
+          "description" : "Contains the customer identifier to fetch list of consent arrangements for the customer or customer identifier of the debtor account. This will be populated once the SCA(Strong Customer Authentication) is completed.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "arrangement",
+          "in" : "query",
+          "description" : "Unique identifier for the arrangement contract",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page_size",
+          "in" : "query",
+          "description" : "The total number of records per page",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "page_start",
+          "in" : "query",
+          "description" : "The record from which the response should be displayed",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "page_token",
+          "in" : "query",
+          "description" : "Unique id expected to get as part of response from Transact on every enquiry request",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "credentials",
+          "in" : "header",
+          "description" : "Username and password to authenticate the API against core-banking.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "companyId",
+          "in" : "header",
+          "description" : "Identifier of the lead company of the underlying Entity/Company/Branch for the respective contract for customer data protection purposes. Example US0010001.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "deviceId",
+          "in" : "header",
+          "description" : "Identifies the device type",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "userRole",
+          "in" : "header",
+          "description" : "User who initiated the transaction",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "disablePagination",
+          "in" : "header",
+          "description" : "Indicates the pagination header attributes availability. If set to 'true', it fetches all the data",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "CustLoanDetsAPIResponse",
+            "schema" : {
+              "$ref" : "#/definitions/CustLoanDetsAPIResponse"
+            }
+          },
+          "default" : {
+            "description" : "QueryErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/QueryErrorResponse"
+            }
+          },
+          "400" : {
+            "description" : "BusinessQueryErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/BusinessQueryErrorResponse"
+            }
+          },
+          "500" : {
+            "description" : "SystemQueryErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/SystemQueryErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "basicAuth" : {
+      "type" : "basic"
+    },
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "QueryHeader" : {
+      "properties" : {
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the API(success/failed)"
+        },
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "T24_time" : {
+              "type" : "integer",
+              "format" : "int32",
+              "description" : "Time taken to response by Transact"
+            },
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            },
+            "requestParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the request by IRIS"
+            },
+            "responseParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the response by IRIS"
+            }
+          }
+        },
+        "page_size" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The total number of records per page"
+        },
+        "page_start" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The record from which the response should be displayed"
+        },
+        "total_size" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The total number of records present"
+        },
+        "page_token" : {
+          "type" : "string",
+          "description" : "Unique id expected to get as part of response from Transact on every enquiry request"
+        }
+      }
+    },
+    "CustLoanDetsAPIResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/QueryHeader"
+        },
+        "body" : {
+          "$ref" : "#/definitions/CustLoanDetsAPIResponseBody"
+        }
+      },
+      "description" : "CustLoanDetsAPIResponse"
+    },
+    "CustLoanDetsAPIResponseBody" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "properties" : {
+          "arrangement" : {
+            "type" : "string",
+            "description" : "Unique identifier for the arrangement contract"
+          },
+          "ZERORECORDS" : {
+            "type" : "string",
+            "description" : "Zero records to display."
+          },
+          "branch" : {
+            "type" : "string",
+            "description" : "Contains the branch name/code in which the business activity was performed. If pricing is not determined based on branch, then this is not significant",
+            "maxLength" : 25
+          },
+          "t24account" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 35
+          },
+          "group" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 4
+          },
+          "village" : {
+            "type" : "string",
+            "description" : "Contains the village where the property is located",
+            "maxLength" : 4
+          },
+          "centre" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 4
+          },
+          "customer" : {
+            "type" : "string",
+            "description" : "Contains the customer identifier to fetch list of consent arrangements for the customer or customer identifier of the debtor account. This will be populated once the SCA(Strong Customer Authentication) is completed.",
+            "maxLength" : 15
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Contains status of the data rights request.Allowed values are INITIATED, INPROGESS, EXTENDED, COMPLETED, REJECTED.",
+            "maxLength" : 25
+          },
+          "productName" : {
+            "type" : "string",
+            "description" : "Product name of the bank for this account, proprietary definition."
+          },
+          "loanCreationDate" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 12
+          },
+          "disbursementDate" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "maturityDate" : {
+            "type" : "string",
+            "description" : "Indicates maturity date of the contract",
+            "maxLength" : 17
+          },
+          "Term" : {
+            "type" : "string",
+            "description" : "Indicates the period to which the BID and OFFER rates apply",
+            "maxLength" : 17
+          },
+          "currency" : {
+            "type" : "string",
+            "description" : "Identifies the currency. E.g. USD, GBP etc",
+            "maxLength" : 3
+          },
+          "disbursementAmount" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 18
+          },
+          "currentLoanAmount" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 18
+          },
+          "principalOutstanding" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 40
+          },
+          "interestOutstanding" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 40
+          },
+          "totalOutstanding" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 45
+          },
+          "overdueAmt" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 45
+          },
+          "parkedAmount" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 45
+          },
+          "currenctDpd" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 4
+          },
+          "peakDpd" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 4
+          },
+          "averageDpd" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 4
+          },
+          "lucStatus" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 15
+          },
+          "lucCompletedDate" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 25
+          },
+          "guarantorName" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 50
+          },
+          "loanFrequency" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 50
+          },
+          "customerCycle" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 40
+          },
+          "assignedRo" : {
+            "type" : "string",
+            "description" : "",
+            "maxLength" : 50
+          },
+          "extensions" : {
+            "type" : "object",
+            "description" : "Indicates the extension data"
+          }
+        }
+      }
+    },
+    "ErrorHeader" : {
+      "properties" : {
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the API(success/failed)"
+        },
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "T24_time" : {
+              "type" : "integer",
+              "format" : "int32",
+              "description" : "Time taken to response by Transact"
+            },
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            },
+            "requestParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the request by IRIS"
+            },
+            "responseParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the response by IRIS"
+            }
+          }
+        }
+      }
+    },
+    "QueryErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/QueryErrorResponseBody"
+        }
+      },
+      "description" : "QueryErrorResponse"
+    },
+    "QueryErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "The identifier of the error message"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "The actual Transact error message "
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: "
+        }
+      }
+    },
+    "BusinessQueryErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/BusinessQueryErrorResponseBody"
+        }
+      },
+      "description" : "BusinessQueryErrorResponse"
+    },
+    "BusinessQueryErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "The identifier of the error message"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "The actual Transact error message for bad requests"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: Business"
+        }
+      }
+    },
+    "SystemQueryErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/SystemQueryErrorResponseBody"
+        }
+      },
+      "description" : "SystemQueryErrorResponse"
+    },
+    "SystemQueryErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "The identifier of the error message"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "The actual Transact error message caused by server"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: System"
+        }
+      }
+    }
+  }
+}

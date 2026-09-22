@@ -1,0 +1,31 @@
+{
+  "key" : "writeOffStatus",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/party/ebffwrtchgoffactivity",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.WRT.CHG.OFF.ACTIVITY,STS.CHARGE.OFF.API.1.0.0"
+    } ],
+    "operationId" : "writeOffStatus",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "writeOffStatus",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "writeOffStatus",
+  "description" : "writeOffStatus",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : true
+}

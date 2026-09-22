@@ -1,0 +1,31 @@
+{
+  "key" : "createPennyDropTransaction",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/reference/pennyDrop/transaction",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "FUNDS.TRANSFER,PD.API.1.0.0"
+    } ],
+    "operationId" : "create",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "createPennyDropTransaction",
+  "description" : "createPennyDropTransaction",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : true
+}

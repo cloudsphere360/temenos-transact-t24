@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-web-app xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.8/weblogic-web-app.xsd http://xmlns.jcp.org/xml/ns/javaee/">
+
+    <!-- For TAFC Uncomment the resource-ref below.  -->
+    <!-- <resource-description> 
+        <res-ref-name>jca/t24ConnectionFactory</res-ref-name>
+        <jndi-name>jca/t24ConnectionFactory</jndi-name>
+    </resource-description> -->
+	<resource-description>
+		<res-ref-name>jms/jmsConnectionFactory</res-ref-name>
+        <!-- <jndi-name>jms/t24QueueCxFactory</jndi-name> -->
+		<!-- Comment below jndi-name for weblogic deployment -->
+		<jndi-name>jms/ConnectionFactory</jndi-name>
+		<!-- Uncomment below jndi-name for weblogic deployment -->
+		<!--<jndi-name>ConnectionFactory</jndi-name> -->
+	</resource-description>
+	<resource-description>
+		<res-ref-name>queue/t24IRISIntQueue</res-ref-name>
+		<jndi-name>jms/t24IRISIntQueue</jndi-name>
+	</resource-description>
+	<resource-description>
+		<res-ref-name>queue/t24IRISIntReplyQueue</res-ref-name>
+		<jndi-name>jms/t24IRISIntReplyQueue</jndi-name>
+	</resource-description>
+	<resource-description>
+		<res-ref-name>queue/t24IRISExtQueue</res-ref-name>
+		<jndi-name>jms/t24IRISExtQueue</jndi-name>
+	</resource-description>
+	<resource-description>
+		<res-ref-name>queue/t24IRISExtReplyQueue</res-ref-name>
+		<jndi-name>jms/t24IRISExtReplyQueue</jndi-name>
+	</resource-description>
+
+	<resource-description>
+		<res-ref-name>queue/t24AAIntQueue</res-ref-name>
+		<jndi-name>jms/t24AAIntQueue</jndi-name>
+	</resource-description>
+	<resource-description>
+		<res-ref-name>queue/t24AAIntReplyQueue</res-ref-name>
+		<jndi-name>jms/t24AAIntReplyQueue</jndi-name>
+	</resource-description>
+	<resource-description>
+		<res-ref-name>queue/t24AAExtQueue</res-ref-name>
+		<jndi-name>jms/t24AAExtQueue</jndi-name>
+	</resource-description>
+	<resource-description>
+		<res-ref-name>queue/t24AAExtReplyQueue</res-ref-name>
+		<jndi-name>jms/t24AAExtReplyQueue</jndi-name>
+	</resource-description>
+
+ <!-- queue conf for IRISMETADATA  -->
+
+	<resource-description>
+		<res-ref-name>queue/t24IRISMetaDataQueue</res-ref-name>
+		<jndi-name>jms/t24IRISMetaDataQueue</jndi-name>
+	</resource-description>
+	<resource-description>
+		<res-ref-name>queue/t24IRISMetaDataReplyQueue</res-ref-name>
+		<jndi-name>jms/t24IRISMetaDataReplyQueue</jndi-name>
+	</resource-description>
+	<jsp-descriptor>
+		<encoding>utf-8</encoding>
+	</jsp-descriptor>
+	<container-descriptor>
+		<prefer-web-inf-classes>false</prefer-web-inf-classes>
+		<prefer-application-packages>
+			<package-name>javax.ws.rs.*</package-name>
+			<package-name>javassist.*</package-name>
+			<package-name>org.aopalliance.*</package-name>
+			<package-name>jersey.repackaged.*</package-name>
+			<package-name>org.glassfish.jersey.server.spi.*</package-name>
+			<package-name>com.sun.research.ws.wadl.*</package-name>
+			<package-name>org.glassfish.hk2.*</package-name>
+			<package-name>org.jvnet.hk2.*</package-name>
+			<package-name>weblogic.jaxrs.api.client.*</package-name>
+			<package-name>weblogic.jaxrs.internal.api.client.*</package-name>
+			<package-name>weblogic.jaxrs.server.internal.*</package-name>
+			<package-name>weblogic.jaxrs.client.internal.*</package-name>
+			<package-name>weblogic.jaxrs.dispatch.*</package-name>
+			<package-name>weblogic.jaxrs.monitoring.util.*</package-name>
+			<package-name>org.codehaus.jackson.*</package-name>
+			<package-name>com.fasterxml.jackson.*</package-name>
+		</prefer-application-packages>
+	</container-descriptor>
+
+</weblogic-web-app>

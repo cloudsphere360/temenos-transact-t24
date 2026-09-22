@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="reference-fusion-fusionCreateVillageDetails.service.v1">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="fusionCreateVillageDetails-v1-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1/reference/fusion" produces="application/json" id="reference-fusion.service.restlet">
+        <post uri="/create/village/details/{id}" id="fusionCreateVillageDetails">
+            <param name="id" type="path" required="true"/>
+            <to uri="direct-vm:reference-fusion.v1.fusionCreateVillageDetails"/>
+        </post>
+    </rest>
+    <route id="direct-vm.reference-fusion.v1.fusionCreateVillageDetails">
+        <from uri="direct-vm:reference-fusion.v1.fusionCreateVillageDetails"/>
+        <to uri="direct-vm:reference-fusion.v1.0.0.fusionCreateVillageDetails"/>
+    </route>
+</camelContext>
+
+</beans>

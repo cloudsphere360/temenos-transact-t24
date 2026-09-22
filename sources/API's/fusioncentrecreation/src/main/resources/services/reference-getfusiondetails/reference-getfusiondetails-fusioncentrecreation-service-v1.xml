@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="reference-getfusiondetails-fusioncentrecreation.service.v1">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="fusioncentrecreation-v1-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1/reference/getfusiondetails" produces="application/json" id="reference-getfusiondetails.service.restlet">
+        <get uri="/{id}" id="getfusiondetails">
+            <param name="id" type="path" required="true"/>
+            <to uri="direct-vm:reference-getfusiondetails.v1.getfusiondetails"/>
+        </get>
+    </rest>
+    <route id="direct-vm.reference-getfusiondetails.v1.getfusiondetails">
+        <from uri="direct-vm:reference-getfusiondetails.v1.getfusiondetails"/>
+        <to uri="direct-vm:reference-getfusiondetails.v1.0.0.getfusiondetails"/>
+    </route>
+</camelContext>
+
+</beans>

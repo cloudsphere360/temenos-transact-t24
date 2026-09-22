@@ -1,0 +1,693 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "fusionUserCreationAPI",
+    "version" : "v1.0.0",
+    "title" : "fusionUserCreationAPI"
+  },
+  "host" : "api.server.com",
+  "basePath" : "/api/v1.0.0/",
+  "tags" : [ {
+    "name" : "RETAIL"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "security" : [ {
+    "basicAuth" : [ ]
+  }, {
+    "apiKey" : [ ]
+  } ],
+  "paths" : {
+    "/reference/fusionUserCreation/{id}" : {
+      "put" : {
+        "tags" : [ "RETAIL" ],
+        "summary" : "",
+        "description" : "fusionUserCreationAPI",
+        "operationId" : "fusionUserCreationAPI",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "body Payload",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/UserCreationAPI"
+          }
+        }, {
+          "name" : "validate_only",
+          "in" : "query",
+          "description" : "The identifier to indicate if it is set to only validate or not.",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "credentials",
+          "in" : "header",
+          "description" : "Username and password to authenticate the API against core-banking.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "companyId",
+          "in" : "header",
+          "description" : "Identifier of the lead company of the underlying Entity/Company/Branch for the respective contract for customer data protection purposes. Example US0010001.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "deviceId",
+          "in" : "header",
+          "description" : "Identifies the device type",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "userRole",
+          "in" : "header",
+          "description" : "User who initiated the transaction",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "UserCreationAPIResponse",
+            "schema" : {
+              "$ref" : "#/definitions/UserCreationAPIResponse"
+            }
+          },
+          "default" : {
+            "description" : "ScreenErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/ScreenErrorResponse"
+            }
+          },
+          "400" : {
+            "description" : "BusinessScreenErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/BusinessScreenErrorResponse"
+            }
+          },
+          "500" : {
+            "description" : "SystemScreenErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/SystemScreenErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "basicAuth" : {
+      "type" : "basic"
+    },
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "PayloadHeader" : {
+      "properties" : {
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            }
+          }
+        }
+      }
+    },
+    "UserCreationAPI" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/PayloadHeader"
+        },
+        "body" : {
+          "$ref" : "#/definitions/UserCreationAPIBody"
+        }
+      },
+      "description" : "UserCreationAPI"
+    },
+    "UserCreationAPIBody" : {
+      "type" : "object",
+      "properties" : {
+        "profileDate" : {
+          "type" : "array",
+          "description" : "Specifies the date from which the profile will be active and subsequently the date till which the profile will remain active",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "profileActiveFrom" : {
+                "type" : "string",
+                "format" : "date",
+                "description" : "Specifies the earliest date from which the user profile will be active"
+              },
+              "profileActiveTo" : {
+                "type" : "string",
+                "format" : "date",
+                "description" : "Specifies the date until which the user profile will remain active"
+              }
+            }
+          }
+        },
+        "accessDetails" : {
+          "type" : "array",
+          "description" : "Specifies the company and role to which the user has access",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "companyCode" : {
+                "type" : "string",
+                "description" : "The identifier of the underlying Entity/Company/Branch.",
+                "minLength" : 0,
+                "maxLength" : 11
+              },
+              "roles" : {
+                "type" : "array",
+                "description" : "Indicates the Role of the Customer",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "role" : {
+                      "type" : "string",
+                      "description" : "Indicates the Role of the Customer",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "definedCompanies" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "definedCompany" : {
+                "type" : "string",
+                "description" : "Allowed company for the defined customer",
+                "minLength" : 0,
+                "maxLength" : 11
+              }
+            }
+          }
+        },
+        "companyRestrict" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "companyRestriction" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 11
+              },
+              "application" : {
+                "type" : "string",
+                "description" : "Name of the application or virtual table",
+                "minLength" : 0,
+                "maxLength" : 40
+              },
+              "version" : {
+                "type" : "string",
+                "description" : "Deprecated - Indicates the version of the product created from Micro-service",
+                "minLength" : 0,
+                "maxLength" : 50
+              },
+              "function" : {
+                "type" : "string",
+                "description" : "Contains the functions to be used. When the inflow is not based on process workflow(PW) but based on single application, these functions can be defined I - Input, A - Authorize, R - Reverse, D - Delete. When it is based on process workflow(PW), the function will only be I - Input.",
+                "minLength" : 0,
+                "maxLength" : 31
+              },
+              "fieldNo" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 55
+              },
+              "dataComparison" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 7
+              },
+              "dataFrom" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "dataTo" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "userName" : {
+          "type" : "string",
+          "description" : "Specifies the name by which the User is known and can be used for reporting purposes",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "userSignOnName" : {
+          "type" : "string",
+          "description" : "This is the name entered by the User to sign on to the System. It is used by the System as an alternative key to access User details",
+          "minLength" : 0,
+          "maxLength" : 150
+        },
+        "language" : {
+          "type" : "string",
+          "description" : "The language that the contents of the field are displayed in.",
+          "minLength" : 0,
+          "maxLength" : 2,
+          "x-link" : "GET /reference/languages/"
+        },
+        "departmentId" : {
+          "type" : "string",
+          "description" : "Department identifier.",
+          "minLength" : 0,
+          "maxLength" : 4
+        },
+        "passwordResetFrequency" : {
+          "type" : "string",
+          "description" : "Specifies how often and on what date the user must change their password",
+          "minLength" : 0,
+          "maxLength" : 17
+        },
+        "mainMenu" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 42
+        },
+        "mobileNo" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 12
+        },
+        "extensions" : {
+          "type" : "object",
+          "description" : "Indicates the extensions"
+        }
+      }
+    },
+    "ScreenHeader" : {
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The Identifier of the record created"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the API(success/failed)"
+        },
+        "transactionStatus" : {
+          "type" : "string",
+          "description" : "The status of the transaction"
+        },
+        "uniqueIdentifier" : {
+          "type" : "string",
+          "description" : "The unique identifier/Message Reference of the record created."
+        },
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "T24_time" : {
+              "type" : "integer",
+              "format" : "int32",
+              "description" : "Time taken to response by Transact"
+            },
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            },
+            "requestParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the request by IRIS"
+            },
+            "responseParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the response by IRIS"
+            }
+          }
+        }
+      }
+    },
+    "UserCreationAPIResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ScreenHeader"
+        },
+        "body" : {
+          "$ref" : "#/definitions/UserCreationAPIResponseBody"
+        }
+      },
+      "description" : "UserCreationAPIResponse"
+    },
+    "UserCreationAPIResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "profileDate" : {
+          "type" : "array",
+          "description" : "Specifies the date from which the profile will be active and subsequently the date till which the profile will remain active",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "profileActiveFrom" : {
+                "type" : "string",
+                "format" : "date",
+                "description" : "Specifies the earliest date from which the user profile will be active"
+              },
+              "profileActiveTo" : {
+                "type" : "string",
+                "format" : "date",
+                "description" : "Specifies the date until which the user profile will remain active"
+              }
+            }
+          }
+        },
+        "accessDetails" : {
+          "type" : "array",
+          "description" : "Specifies the company and role to which the user has access",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "companyCode" : {
+                "type" : "string",
+                "description" : "The identifier of the underlying Entity/Company/Branch.",
+                "minLength" : 0,
+                "maxLength" : 11
+              },
+              "roles" : {
+                "type" : "array",
+                "description" : "Indicates the Role of the Customer",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "role" : {
+                      "type" : "string",
+                      "description" : "Indicates the Role of the Customer",
+                      "minLength" : 0,
+                      "maxLength" : 35
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "definedCompanies" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "definedCompany" : {
+                "type" : "string",
+                "description" : "Allowed company for the defined customer",
+                "minLength" : 0,
+                "maxLength" : 11
+              }
+            }
+          }
+        },
+        "companyRestrict" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "companyRestriction" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 11
+              },
+              "application" : {
+                "type" : "string",
+                "description" : "Name of the application or virtual table",
+                "minLength" : 0,
+                "maxLength" : 40
+              },
+              "version" : {
+                "type" : "string",
+                "description" : "Deprecated - Indicates the version of the product created from Micro-service",
+                "minLength" : 0,
+                "maxLength" : 50
+              },
+              "function" : {
+                "type" : "string",
+                "description" : "Contains the functions to be used. When the inflow is not based on process workflow(PW) but based on single application, these functions can be defined I - Input, A - Authorize, R - Reverse, D - Delete. When it is based on process workflow(PW), the function will only be I - Input.",
+                "minLength" : 0,
+                "maxLength" : 31
+              },
+              "fieldNo" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 55
+              },
+              "dataComparison" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 7
+              },
+              "dataFrom" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "dataTo" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "userName" : {
+          "type" : "string",
+          "description" : "Specifies the name by which the User is known and can be used for reporting purposes",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "userSignOnName" : {
+          "type" : "string",
+          "description" : "This is the name entered by the User to sign on to the System. It is used by the System as an alternative key to access User details",
+          "minLength" : 0,
+          "maxLength" : 150
+        },
+        "language" : {
+          "type" : "string",
+          "description" : "The language that the contents of the field are displayed in.",
+          "minLength" : 0,
+          "maxLength" : 2,
+          "x-link" : "GET /reference/languages/"
+        },
+        "departmentId" : {
+          "type" : "string",
+          "description" : "Department identifier.",
+          "minLength" : 0,
+          "maxLength" : 4
+        },
+        "passwordResetFrequency" : {
+          "type" : "string",
+          "description" : "Specifies how often and on what date the user must change their password",
+          "minLength" : 0,
+          "maxLength" : 17
+        },
+        "mainMenu" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 42
+        },
+        "mobileNo" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 12
+        },
+        "extensions" : {
+          "type" : "object",
+          "description" : "Indicates the extensions"
+        }
+      }
+    },
+    "ErrorHeader" : {
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The Identifier of the record created"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the API(success/failed)"
+        },
+        "transactionStatus" : {
+          "type" : "string",
+          "description" : "The status of the transaction"
+        },
+        "uniqueIdentifier" : {
+          "type" : "string",
+          "description" : "The unique identifier/Message Reference of the record created."
+        },
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "T24_time" : {
+              "type" : "integer",
+              "format" : "int32",
+              "description" : "Time taken to response by Transact"
+            },
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            },
+            "requestParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the request by IRIS"
+            },
+            "responseParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the response by IRIS"
+            }
+          }
+        }
+      }
+    },
+    "ScreenErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/ScreenErrorResponseBody"
+        }
+      },
+      "description" : "ScreenErrorResponse"
+    },
+    "ScreenErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "errorDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fieldName" : {
+                "type" : "string",
+                "description" : "The name of the field"
+              },
+              "code" : {
+                "type" : "string",
+                "description" : "The identifier of the error message"
+              },
+              "message" : {
+                "type" : "string",
+                "description" : "The actual Transact error message "
+              }
+            }
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: "
+        }
+      }
+    },
+    "BusinessScreenErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/BusinessScreenErrorResponseBody"
+        }
+      },
+      "description" : "BusinessScreenErrorResponse"
+    },
+    "BusinessScreenErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "errorDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fieldName" : {
+                "type" : "string",
+                "description" : "The name of the field"
+              },
+              "code" : {
+                "type" : "string",
+                "description" : "The identifier of the error message"
+              },
+              "message" : {
+                "type" : "string",
+                "description" : "The actual Transact error message for bad requests"
+              }
+            }
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: Business"
+        }
+      }
+    },
+    "SystemScreenErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/SystemScreenErrorResponseBody"
+        }
+      },
+      "description" : "SystemScreenErrorResponse"
+    },
+    "SystemScreenErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "errorDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fieldName" : {
+                "type" : "string",
+                "description" : "The name of the field"
+              },
+              "code" : {
+                "type" : "string",
+                "description" : "The identifier of the error message"
+              },
+              "message" : {
+                "type" : "string",
+                "description" : "The actual Transact error message caused by server"
+              }
+            }
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: System"
+        }
+      }
+    }
+  }
+}

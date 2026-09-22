@@ -1,0 +1,31 @@
+{
+  "key" : "createCustomerAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "PUT",
+    "url" : "/party/createCustomers/{id}",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "CUSTOMER,FF.API.INDIVIUDAL.CUST.1.0.0"
+    } ],
+    "operationId" : "createCustomerAPI",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "true"
+    },
+    "function" : "input"
+  } ],
+  "title" : "createCustomerAPI",
+  "description" : "createCustomerAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

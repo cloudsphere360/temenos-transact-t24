@@ -1,0 +1,31 @@
+{
+  "key" : "fusionNetoffReversalAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/reference/fusionNetoffReversal",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.LOAN.ACTIVITY,FF.API.NETOFF.REVERSAL.1.0.0"
+    } ],
+    "operationId" : "fusionNetoffReversalAPI",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusionNetoffReversalAPI",
+  "description" : "fusionNetoffReversalAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

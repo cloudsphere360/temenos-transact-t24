@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="reference-fusion-fusionUpdateGroupDetails.service.v1.0">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="fusionUpdateGroupDetails-v1.0-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1.0/reference/fusion" produces="application/json" id="reference-fusion.service.restlet">
+        <put uri="/update/group/details/{id}" id="fusionUpdateGroupDetails">
+            <param name="id" type="path" required="true"/>
+            <to uri="direct-vm:reference-fusion.v1.0.fusionUpdateGroupDetails"/>
+        </put>
+    </rest>
+    <route id="direct-vm.reference-fusion.v1.0.fusionUpdateGroupDetails">
+        <from uri="direct-vm:reference-fusion.v1.0.fusionUpdateGroupDetails"/>
+        <to uri="direct-vm:reference-fusion.v1.0.0.fusionUpdateGroupDetails"/>
+    </route>
+</camelContext>
+
+</beans>

@@ -1,0 +1,31 @@
+{
+  "key" : "fusionWriteOff",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/holdings/fusionWriteOff",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.WRT.CHG.OFF.ACTIVITY,WRITE.OFF.API.1.0.0"
+    } ],
+    "operationId" : "fusionWriteOff",
+    "operationSecurity" : "Public",
+    "summary" : "fusionWriteOff",
+    "description" : "fusionWriteOff",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusionWriteOff",
+  "description" : "fusionWriteOff",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

@@ -1,0 +1,34 @@
+{
+  "key" : "fusiongetGroupDetails",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "GET",
+    "url" : "/reference/fusion/group/details/{id}",
+    "resources" : [ {
+      "resourceType" : "Query",
+      "key" : "FFL.EB.FF.GROUPS.API.1.0.0",
+      "selections" : [ {
+        "field" : "@ID",
+        "operand" : "EQ",
+        "param" : "id",
+        "type" : "string"
+      } ]
+    } ],
+    "operationId" : "fusiongetGroupDetails",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "fusiongetGroupDetails",
+    "tags" : [ "OTHERS" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false"
+    }
+  } ],
+  "title" : "fusiongetGroupDetails",
+  "description" : "fusiongetGroupDetails",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : true
+}

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.temenos.security.oidc, com.temenos.irf.web.security.jwt.parser" />
+    <context:spring-configured />
+    
+   <!--create-session="stateless" used so it will not allow Spring Security to create default session to avoid performance issues  -->
+    <security:http create-session="stateless" entry-point-ref="authenticationEntryPoint">
+        <security:custom-filter after="BASIC_AUTH_FILTER" ref="jwtTokenValidationFilter" />
+        <security:csrf disabled="true"/>
+        <security:anonymous enabled="false"/>
+        <!-- Uncomment the below tag to enable the CORS mechanism using Spring configuration
+        <security:cors configuration-source-ref="corsSource"/> -->
+    </security:http>
+    
+    <beans:bean id="corsSource" class="org.springframework.web.cors.UrlBasedCorsConfigurationSource">
+        <beans:property name="corsConfigurations">
+            <beans:map>
+                <beans:entry key="/**">
+                    <beans:bean class="org.springframework.web.cors.CorsConfiguration">
+                        <beans:property name="allowCredentials" value="false" />
+                        <beans:property name="allowedHeaders">
+                            <beans:list>
+                                <beans:value>Authorization</beans:value>
+                                <beans:value>Content-Type</beans:value>
+                            </beans:list>
+                        </beans:property>
+                        <beans:property name="allowedMethods">
+                            <beans:list>
+                                <beans:value>POST</beans:value>
+                                <beans:value>GET</beans:value>
+                                <beans:value>PUT</beans:value>
+                                <beans:value>DELETE</beans:value>
+                            </beans:list>
+                        </beans:property>
+                        <beans:property name="allowedOrigins" value="*" />
+                        <beans:property name="exposedHeaders">
+                            <beans:list>
+                                <beans:value>Location</beans:value>
+                                <beans:value>Content-Disposition</beans:value>
+                            </beans:list>
+                        </beans:property>
+                        <beans:property name="maxAge" value="86400" />
+                    </beans:bean>
+                </beans:entry>
+            </beans:map>
+        </beans:property>
+    </beans:bean>
+    
+     <http-firewall ref="myHttpFirewall" />
+
+    <beans:bean id="myHttpFirewall" class="org.springframework.security.web.firewall.StrictHttpFirewall">
+        <beans:property name="allowSemicolon" value="true" />
+        <beans:property name="allowUrlEncodedSlash" value="true" />
+        <beans:property name="allowBackSlash" value="true" />
+        <beans:property name="allowUrlEncodedPercent" value="true" />
+        <beans:property name="allowUrlEncodedPeriod" value="true" />
+    </beans:bean>
+    
+    <beans:bean id="jwtAuthenticationProvider" class="com.temenos.irf.web.security.jwt.filter.JWTAuthenticationProvider"></beans:bean>
+    <security:authentication-manager alias="irfam">
+          <security:authentication-provider ref="jwtAuthenticationProvider" />
+    </security:authentication-manager>
+ 
+    <beans:bean id="jwtTokenValidationFilter" class="com.temenos.irf.web.security.jwt.filter.JWTTokenValidationFilter">
+        <beans:property name="authenticationManager" ref="irfam" />
+        <beans:property name="authenticationSuccessHandler">
+            <beans:bean class="com.temenos.security.oidc.filter.OidcAuthenticationSuccessHandler" />
+        </beans:property>
+        <beans:property name="skipUrls" value="/v1/healthz,/v1.0.0/meta/apis,/v1.0.0/meta/healthcheck,/v1.0.0/system/metrics/elasticity/agents/itemCount,/v1.0.0/meta/warmUp/doaawarmup" />
+    </beans:bean>
+
+    <!-- OIDC Authenticator -->
+
+    <beans:bean id="oidcAuthenticatorConfig" class="com.temenos.security.oidc.common.OidcAuthenticatorConfig">
+        <beans:property name="authHeaders">
+            <beans:set>
+                <beans:value>Authorization</beans:value>
+            </beans:set>
+        </beans:property>
+        <beans:property name="expiryDelayAllowance" value="0" />
+    </beans:bean>
+
+    <beans:bean id="TokenValidatorConfig" class="com.temenos.security.oidc.common.TokenValidationConfig">
+       <beans:property name="idTokenSigned" value="false" />
+    </beans:bean>
+    
+    <beans:bean id="customSignature" class="com.temenos.irf.web.security.jwt.validator.CustomSignatureValidator"/>
+
+    <!-- Validations -->
+    <!--  Default claims validated are "exp", "iss", "iat"  -->
+    <beans:bean id="claim" class="com.temenos.security.oidc.token.validator.ClaimValidator">
+        <beans:property name="claims">
+            <beans:list>
+                <beans:ref bean="exp" />
+                <beans:ref bean="iss" />
+                <beans:ref bean="iat" />
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+    
+     <!-- customer specific claim validations, user can pass any number of claims as a key value pair. -->
+    <beans:bean id="customClaim" class="com.temenos.irf.web.security.jwt.validator.CustomClaimValidator">
+        <beans:property name="customClaims">
+            <beans:map>
+                <beans:entry key="" value="" />
+            </beans:map>
+        </beans:property>
+    </beans:bean>
+
+    <beans:bean id="validatorComposite" class="com.temenos.security.oidc.token.validator.ValidatorComposite">
+        <beans:property name="validations">
+            <beans:list>
+                <beans:ref bean="algorithm" />
+                <beans:ref bean="claim" />
+                <beans:ref bean="signature" />
+                <beans:ref bean="customClaim" />
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+    <!-- END Validation -->
+    
+	<!-- List of claim that needs to extracted fromm the token and set into request headers for further processing, the key indicates the jwt claim, 
+	      and value indicates if this claim needs to be mapped to any other user defined header names -->
+    <beans:bean id="requiredFields" class="com.temenos.irf.web.security.jwt.parser.RequiredFieldsExtractor">
+        <beans:property name="claimsToExtract">
+			 <beans:map>
+                <beans:entry key ="" value ="" />
+			</beans:map>
+        </beans:property>
+    </beans:bean>
+    <!-- End Claims Extraction -->
+
+    <!-- OIDC Provider Config -->
+    <beans:bean id="oidcProviderConfig" class="com.temenos.security.oidc.common.OidcProviderConfig">
+        <beans:property name="oidcProviderConfigMap">
+            <beans:map>
+                <beans:entry key="iris" value-ref="oidcProviderServer" />
+            </beans:map>
+        </beans:property>
+        <beans:property name="selectedProvider" value="iris" />
+    </beans:bean>
+
+    <!-- OIDC Provider Selector End -->
+
+    <!-- OIDC provider Server -->
+    <!--Empty value for property "pkKeyType" defaults to RSA. When both setenv and xml file is configured, "pkKeyType" in setenv takes higher priority-->
+    <beans:bean id="oidcProviderServer" class="com.temenos.security.oidc.common.OidcProviderServer">
+        <beans:property name="issuer" value="https://localhost:9443/oauth2/token" />
+        <beans:property name="pkKeyType" value="" />
+        <beans:property name="pkEncoded" value="" />
+        <beans:property name="pkCertEncoded" value="" />
+        <beans:property name="pkCertFilePath" value="" />
+        <beans:property name="pkJwksUri" value="" />
+        <!-- Refresh interval values can only be expressed in milliseconds (ms). E.g., 40ms. -->
+        <beans:property name="pkjwksUriRefreshInterval" value="" />
+        <beans:property name="decryptingJwkEncoded" value="" />
+        <beans:property name="principalClaim" value="sub" />
+    </beans:bean>
+    <!-- End OIDC provider Server -->
+
+    <!-- Start Relying Party -->
+    <beans:bean id="relyingPartyConfig" class="com.temenos.security.oidc.common.RelyingPartyConfig">
+        <beans:property name="RelyingPartyClientMap">
+            <beans:map>
+                <beans:entry key="iris" value-ref="relyingPartyClientDevIris" />
+            </beans:map>
+        </beans:property>
+        <beans:property name="currentRP" value="iris" />
+    </beans:bean>
+
+    <beans:bean id="relyingPartyClientDevIris" class="com.temenos.security.oidc.common.RelyingPartyClient">
+        <beans:property name="idTokenSignedAlg" value="RS256" />
+    </beans:bean>
+    <!-- END Relying Party -->
+
+</beans:beans>

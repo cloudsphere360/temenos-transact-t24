@@ -1,0 +1,31 @@
+{
+  "key" : "SettlementChargeoff",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/party/Fusion/FullWriteOff",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.WRT.CHG.OFF.ACTIVITY,WRITE.OFF.API.1.0.0"
+    } ],
+    "operationId" : "Fusionchargeoff",
+    "operationSecurity" : "Public",
+    "summary" : "Fusionchargeoff",
+    "description" : "Fusionchargeoff",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "SettlementChargeoff",
+  "description" : "SettlementChargeoff",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

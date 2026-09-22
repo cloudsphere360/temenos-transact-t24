@@ -1,0 +1,39 @@
+{
+  "key" : "fusionCreateVillageDetails",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/reference/fusion/create/village/details/{id}",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.VILLAGE,INPUTT.API.1.0.0",
+      "fields" : [ {
+        "target" : "recordid",
+        "parameterName" : "id",
+        "constant" : null,
+        "source" : null,
+        "destination" : null,
+        "mapping" : false
+      } ]
+    } ],
+    "operationId" : "fusionCreateVillageDetails",
+    "operationSecurity" : "Public",
+    "summary" : "fusionCreateVillageDetails",
+    "description" : "fusionCreateVillageDetails",
+    "tags" : [ "OTHERS" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusionCreateVillageDetails",
+  "description" : "fusionCreateVillageDetails",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : true
+}

@@ -1,0 +1,39 @@
+{
+  "key" : "fusionCustLoanDetsAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "GET",
+    "url" : "/party/fusionCustLoanDets",
+    "resources" : [ {
+      "resourceType" : "Query",
+      "key" : "FF.API.EM.SCV.FIND.ARRANGEMENT.AL.1.0.0",
+      "selections" : [ {
+        "field" : "CUSTOMER",
+        "operand" : "EQ",
+        "param" : "customer",
+        "type" : "string"
+      }, {
+        "field" : "ARRANGEMENT.ID",
+        "operand" : "EQ",
+        "param" : "arrangement",
+        "type" : "string"
+      } ]
+    } ],
+    "operationId" : "fusionCustLoanDetsAPI",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false"
+    }
+  } ],
+  "title" : "fusionCustLoanDetsAPI",
+  "description" : "fusionCustLoanDetsAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

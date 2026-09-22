@@ -1,0 +1,66 @@
+{
+  "key" : "fusionBmLucUpdate",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/reference/fusionLucBmUpdate/{id}",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.LOANS.LUC,INPUT.BY.BM.API.1.0.0",
+      "fields" : [ {
+        "target" : "recordid",
+        "parameterName" : "id",
+        "constant" : null,
+        "source" : null,
+        "destination" : null,
+        "mapping" : false
+      } ]
+    } ],
+    "operationId" : "fusionLucBmUpdate",
+    "operationSecurity" : "Public",
+    "summary" : "fusionLucBmUpdate",
+    "description" : "fusionLucBmUpdate",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  }, {
+    "method" : "GET",
+    "url" : "/reference/fusionLoanLucDetails/{id}",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.LOANS.LUC,GET.LUC.API.1.0.0",
+      "fields" : [ {
+        "target" : "recordid",
+        "parameterName" : "id",
+        "constant" : null,
+        "source" : null,
+        "destination" : null,
+        "mapping" : false
+      } ]
+    } ],
+    "operationId" : "fusionLucGetDetails",
+    "operationSecurity" : "Public",
+    "summary" : "fusionLucGetDetails",
+    "description" : "fusionLoanLucDetails",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusionBmLucUpdate",
+  "description" : "fusionBmLucUpdate",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

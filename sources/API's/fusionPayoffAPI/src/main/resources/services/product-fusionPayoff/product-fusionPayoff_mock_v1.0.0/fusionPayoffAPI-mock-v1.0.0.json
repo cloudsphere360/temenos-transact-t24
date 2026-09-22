@@ -1,0 +1,1 @@
+{"ref":"mock-product","arrangementActivity":{"arrangement":"string","extensions":{},"activity":"string","autoRun":"string","synchronous":"string","payoffDate":"string","closureNotes":"string","closureReason":"string","simRunRef":"string"},"activities":{"{activityName}":{"activity":"string","transactionStatus":"string","id":"string"}},"properties":{}}

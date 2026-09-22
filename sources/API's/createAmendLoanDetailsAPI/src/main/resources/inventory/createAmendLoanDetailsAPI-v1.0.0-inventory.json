@@ -1,0 +1,31 @@
+{
+  "key" : "createAmendLoanDetailsAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "PUT",
+    "url" : "/reference/create/fusionloandetails/{id}",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.LOAN.DETAILS,FF.API.LOAN.DETAILS.1.0.0"
+    } ],
+    "operationId" : "createAmendLoanDetails",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "createAmendLoanDetailsAPI",
+  "description" : "createAmendLoanDetailsAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

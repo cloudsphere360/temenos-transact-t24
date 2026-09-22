@@ -1,0 +1,63 @@
+{
+    "key": "fundsTransfer",
+    "version": "v1.0.0",
+    "title": "Funds Transfer Provider API's'",
+    "paths": [    
+         {
+            "method": "GET",
+            "url": "/payments/{id}/statusreport",
+            "resources": [
+                {
+                    "resourceType": "Query",
+                    "key": "FT.API.PAYMENT.STATUSREPORT.1.0.0",
+                    "selections": [
+                        {
+                            "field": "ACCOUNTREFERENCE",
+                            "operand": "EQ",
+                            "param": "id",
+                            "constant": "",
+                            "type": "string"
+                        },{
+                            "field": "STARTDATE",
+                            "operand": "EQ",
+                            "param": "startDate",
+                            "constant": "",
+                            "type": "string"
+                        },{
+                            "field": "ENDDATE",
+                            "operand": "EQ",
+                            "param": "endDate",
+                            "constant": "",
+                            "type": "string"
+                        },{
+                            "field": "NOOFORDERS",
+                            "operand": "EQ",
+                            "param": "noOfOrders",
+                            "constant": "",
+                            "type": "string"
+                        },{
+                            "field": "LISTTYPE",
+                            "operand": "EQ",
+                            "param": "listType",
+                            "constant": "",
+                            "type": "string"
+                        }
+                    ]
+                }
+            ],
+            "operationId": "GetPaymentStatusReport"
+        },
+        {
+            "method": "POST",
+            "url": "/payments/transfer/initiation",
+            "resources": [
+                {
+                    "resourceType": "Screen",
+                    "key": "FUNDS.TRANSFER,FT.API.INITIATE.PAYMENT.1.0.0"                   
+                }
+            ],
+            "operationId": "PaymentTransferInitiation"
+        }
+   ]
+       
+}

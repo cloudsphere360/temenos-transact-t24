@@ -1,0 +1,1371 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "createAmendLoanDetailsAPI",
+    "version" : "v1.0.0",
+    "title" : "createAmendLoanDetailsAPI"
+  },
+  "host" : "api.server.com",
+  "basePath" : "/api/v1.0.0/",
+  "tags" : [ {
+    "name" : "RETAIL"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "security" : [ {
+    "basicAuth" : [ ]
+  }, {
+    "apiKey" : [ ]
+  } ],
+  "paths" : {
+    "/reference/create/fusionloandetails/{id}" : {
+      "put" : {
+        "tags" : [ "RETAIL" ],
+        "summary" : "",
+        "description" : "",
+        "operationId" : "createAmendLoanDetails",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "body Payload",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/AmendLoanDetails"
+          }
+        }, {
+          "name" : "validate_only",
+          "in" : "query",
+          "description" : "The identifier to indicate if it is set to only validate or not.",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "credentials",
+          "in" : "header",
+          "description" : "Username and password to authenticate the API against core-banking.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "companyId",
+          "in" : "header",
+          "description" : "Identifier of the lead company of the underlying Entity/Company/Branch for the respective contract for customer data protection purposes. Example US0010001.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "deviceId",
+          "in" : "header",
+          "description" : "Identifies the device type",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "userRole",
+          "in" : "header",
+          "description" : "User who initiated the transaction",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "AmendLoanDetailsResponse",
+            "schema" : {
+              "$ref" : "#/definitions/AmendLoanDetailsResponse"
+            }
+          },
+          "default" : {
+            "description" : "ScreenErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/ScreenErrorResponse"
+            }
+          },
+          "400" : {
+            "description" : "BusinessScreenErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/BusinessScreenErrorResponse"
+            }
+          },
+          "500" : {
+            "description" : "SystemScreenErrorResponse",
+            "schema" : {
+              "$ref" : "#/definitions/SystemScreenErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "basicAuth" : {
+      "type" : "basic"
+    },
+    "apiKey" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "PayloadHeader" : {
+      "properties" : {
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            }
+          }
+        }
+      }
+    },
+    "AmendLoanDetails" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/PayloadHeader"
+        },
+        "body" : {
+          "$ref" : "#/definitions/AmendLoanDetailsBody"
+        }
+      },
+      "description" : "AmendLoanDetails"
+    },
+    "AmendLoanDetailsBody" : {
+      "type" : "object",
+      "properties" : {
+        "customerFamilyDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "familyEntityNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "relation" : {
+                "type" : "string",
+                "description" : "Identifies the inter-relationship between customer with other customers",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "legalName" : {
+                "type" : "string",
+                "description" : "Contains the legal name of the business.",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "dateOfBirth" : {
+                "type" : "string",
+                "description" : "The date of birth of an individual customer",
+                "minLength" : 0,
+                "maxLength" : 15
+              },
+              "fatherName" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isGuarantor" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "guarantorEntityNo" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isNominee" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "dateOfDeath" : {
+                "type" : "string",
+                "description" : "The death date of customer.",
+                "minLength" : 0,
+                "maxLength" : 15
+              },
+              "occupation" : {
+                "type" : "string",
+                "description" : "Occupation of the customer",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "occupationType" : {
+                "type" : "string",
+                "description" : "Specifies the occupation of the party.",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "educationLevel" : {
+                "type" : "string",
+                "description" : "Denotes the clients's education Level.Possible Values : Degree, Diploma, A Level, O Level, Post Graduate, 0 - None, 1 - Not Defined, 2 - High School, 3 - Graduate, 4 - Post Graduate",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "maritalStatus" : {
+                "type" : "string",
+                "description" : "Marital status of the customer",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isEligibleHouseholdMember" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isAlive" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "mothername" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "cusHouseHoldIncome" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "incomeEntityNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "incomeType" : {
+                "type" : "string",
+                "description" : "Indicates if the record is a capital component or income component",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "incomeFrequency" : {
+                "type" : "string",
+                "description" : "Indicates the payment frequency of salary",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "noOfIncomePeriod" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "incomePerPeriod" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "incUpdatedOn" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "cusExpenseIncome" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "expenseEnitityNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "expenseType" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "expenseFrequency" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "noOfExpensePeriod" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "expensePerPeriod" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "expUpdatedOn" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "customerAddress" : {
+          "type" : "array",
+          "description" : "Indicates the customer mailing address",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "address1" : {
+                "type" : "string",
+                "description" : "Contains the first line of customer's base address, example street number. - Deprecated",
+                "minLength" : 0,
+                "maxLength" : 100
+              },
+              "city" : {
+                "type" : "string",
+                "description" : "City address stated on driver licence or utlility bill. For example London, New York etc.",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "country" : {
+                "type" : "string",
+                "description" : "Identifies the country of the customer or a property or organization",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "landmark" : {
+                "type" : "string",
+                "description" : "Contains the landmark for the address.",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "latitude" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "longitude" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "pincode" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "propertyOwnership" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "residenceType" : {
+                "type" : "string",
+                "description" : "Residence type of the customer like Farmhouse, Independent house, Residential Apartment, Serviced Apartments",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "tehsil" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "districtName" : {
+                "type" : "string",
+                "description" : "Stores the district name of the  Beneficiary Customer.",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "stateName" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "villageName" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "addressType" : {
+                "type" : "string",
+                "description" : "Indicates the address type of customer. Allowed values are: Tax reporting address or Permanent Residence Address",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "customerMemContact" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "contactEntityNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "contactType" : {
+                "type" : "string",
+                "description" : "Types of contacts available to users to communicate",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "contactValue" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isVerified" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "verifiedPostingTime" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "customerBankDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "bankEntityNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "bankAccountNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "bankAccountType" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "ifscCode" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isPrimary" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isAccountValidated" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "beneficiaryName" : {
+                "type" : "string",
+                "description" : "Short title or short name of the beneficiary",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isActive" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "customerDocument" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "docEntityNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "docpath" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 100
+              },
+              "documentName" : {
+                "type" : "string",
+                "description" : "The accepted forms of identification taken by the bank when enrolling a Customer",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "documentType" : {
+                "type" : "string",
+                "description" : "Contains the type of the document.",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "documentNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "documentFace" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "documentDesciption" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "customerNumber" : {
+          "type" : "string",
+          "description" : "Identifier of the customer",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "branch" : {
+          "type" : "string",
+          "description" : "Contains the branch name/code in which the business activity was performed. If pricing is not determined based on branch, then this is not significant",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "gender" : {
+          "type" : "string",
+          "description" : "Gender of the Individual Customer",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "collectionOfficer" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "loanAmtRequested" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "officerEmployNum" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "loanApprovalDate" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "dayNumber" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "weekNumber" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "currFunderName" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "currFunderTagDate" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "promiseToPay" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "extensions" : {
+          "type" : "object",
+          "description" : "Indicates the extensions"
+        }
+      }
+    },
+    "ScreenHeader" : {
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The Identifier of the record created"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the API(success/failed)"
+        },
+        "transactionStatus" : {
+          "type" : "string",
+          "description" : "The status of the transaction"
+        },
+        "uniqueIdentifier" : {
+          "type" : "string",
+          "description" : "The unique identifier/Message Reference of the record created."
+        },
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "T24_time" : {
+              "type" : "integer",
+              "format" : "int32",
+              "description" : "Time taken to response by Transact"
+            },
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            },
+            "requestParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the request by IRIS"
+            },
+            "responseParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the response by IRIS"
+            }
+          }
+        }
+      }
+    },
+    "AmendLoanDetailsResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ScreenHeader"
+        },
+        "body" : {
+          "$ref" : "#/definitions/AmendLoanDetailsResponseBody"
+        }
+      },
+      "description" : "AmendLoanDetailsResponse"
+    },
+    "AmendLoanDetailsResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "customerFamilyDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "familyEntityNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "relation" : {
+                "type" : "string",
+                "description" : "Identifies the inter-relationship between customer with other customers",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "legalName" : {
+                "type" : "string",
+                "description" : "Contains the legal name of the business.",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "dateOfBirth" : {
+                "type" : "string",
+                "description" : "The date of birth of an individual customer",
+                "minLength" : 0,
+                "maxLength" : 15
+              },
+              "fatherName" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isGuarantor" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "guarantorEntityNo" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isNominee" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "dateOfDeath" : {
+                "type" : "string",
+                "description" : "The death date of customer.",
+                "minLength" : 0,
+                "maxLength" : 15
+              },
+              "occupation" : {
+                "type" : "string",
+                "description" : "Occupation of the customer",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "occupationType" : {
+                "type" : "string",
+                "description" : "Specifies the occupation of the party.",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "educationLevel" : {
+                "type" : "string",
+                "description" : "Denotes the clients's education Level.Possible Values : Degree, Diploma, A Level, O Level, Post Graduate, 0 - None, 1 - Not Defined, 2 - High School, 3 - Graduate, 4 - Post Graduate",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "maritalStatus" : {
+                "type" : "string",
+                "description" : "Marital status of the customer",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isEligibleHouseholdMember" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isAlive" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "mothername" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "cusHouseHoldIncome" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "incomeEntityNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "incomeType" : {
+                "type" : "string",
+                "description" : "Indicates if the record is a capital component or income component",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "incomeFrequency" : {
+                "type" : "string",
+                "description" : "Indicates the payment frequency of salary",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "noOfIncomePeriod" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "incomePerPeriod" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "incUpdatedOn" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "cusExpenseIncome" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "expenseEnitityNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "expenseType" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "expenseFrequency" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "noOfExpensePeriod" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "expensePerPeriod" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "expUpdatedOn" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "customerAddress" : {
+          "type" : "array",
+          "description" : "Indicates the customer mailing address",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "address1" : {
+                "type" : "string",
+                "description" : "Contains the first line of customer's base address, example street number. - Deprecated",
+                "minLength" : 0,
+                "maxLength" : 100
+              },
+              "city" : {
+                "type" : "string",
+                "description" : "City address stated on driver licence or utlility bill. For example London, New York etc.",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "country" : {
+                "type" : "string",
+                "description" : "Identifies the country of the customer or a property or organization",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "landmark" : {
+                "type" : "string",
+                "description" : "Contains the landmark for the address.",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "latitude" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "longitude" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "pincode" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "propertyOwnership" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "residenceType" : {
+                "type" : "string",
+                "description" : "Residence type of the customer like Farmhouse, Independent house, Residential Apartment, Serviced Apartments",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "tehsil" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "districtName" : {
+                "type" : "string",
+                "description" : "Stores the district name of the  Beneficiary Customer.",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "stateName" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "villageName" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "addressType" : {
+                "type" : "string",
+                "description" : "Indicates the address type of customer. Allowed values are: Tax reporting address or Permanent Residence Address",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "customerMemContact" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "contactEntityNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 35
+              },
+              "contactType" : {
+                "type" : "string",
+                "description" : "Types of contacts available to users to communicate",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "contactValue" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isVerified" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "verifiedPostingTime" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "customerBankDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "bankEntityNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "bankAccountNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "bankAccountType" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "ifscCode" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isPrimary" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isAccountValidated" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "beneficiaryName" : {
+                "type" : "string",
+                "description" : "Short title or short name of the beneficiary",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "isActive" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "customerDocument" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "docEntityNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "docpath" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 100
+              },
+              "documentName" : {
+                "type" : "string",
+                "description" : "The accepted forms of identification taken by the bank when enrolling a Customer",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "documentType" : {
+                "type" : "string",
+                "description" : "Contains the type of the document.",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "documentNumber" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "documentFace" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              },
+              "documentDesciption" : {
+                "type" : "string",
+                "description" : "",
+                "minLength" : 0,
+                "maxLength" : 70
+              }
+            }
+          }
+        },
+        "customerNumber" : {
+          "type" : "string",
+          "description" : "Identifier of the customer",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "branch" : {
+          "type" : "string",
+          "description" : "Contains the branch name/code in which the business activity was performed. If pricing is not determined based on branch, then this is not significant",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "gender" : {
+          "type" : "string",
+          "description" : "Gender of the Individual Customer",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "collectionOfficer" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "loanAmtRequested" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "officerEmployNum" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "loanApprovalDate" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "dayNumber" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "weekNumber" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "currFunderName" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "currFunderTagDate" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "promiseToPay" : {
+          "type" : "string",
+          "description" : "",
+          "minLength" : 0,
+          "maxLength" : 70
+        },
+        "extensions" : {
+          "type" : "object",
+          "description" : "Indicates the extensions"
+        }
+      }
+    },
+    "ErrorHeader" : {
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The Identifier of the record created"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the API(success/failed)"
+        },
+        "transactionStatus" : {
+          "type" : "string",
+          "description" : "The status of the transaction"
+        },
+        "uniqueIdentifier" : {
+          "type" : "string",
+          "description" : "The unique identifier/Message Reference of the record created."
+        },
+        "audit" : {
+          "type" : "object",
+          "properties" : {
+            "T24_time" : {
+              "type" : "integer",
+              "format" : "int32",
+              "description" : "Time taken to response by Transact"
+            },
+            "versionNumber" : {
+              "type" : "string",
+              "description" : "The CURR.NO. of the record"
+            },
+            "requestParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the request by IRIS"
+            },
+            "responseParse_time" : {
+              "type" : "number",
+              "description" : "Time taken to parse the response by IRIS"
+            }
+          }
+        }
+      }
+    },
+    "ScreenErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/ScreenErrorResponseBody"
+        }
+      },
+      "description" : "ScreenErrorResponse"
+    },
+    "ScreenErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "errorDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fieldName" : {
+                "type" : "string",
+                "description" : "The name of the field"
+              },
+              "code" : {
+                "type" : "string",
+                "description" : "The identifier of the error message"
+              },
+              "message" : {
+                "type" : "string",
+                "description" : "The actual Transact error message "
+              }
+            }
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: "
+        }
+      }
+    },
+    "BusinessScreenErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/BusinessScreenErrorResponseBody"
+        }
+      },
+      "description" : "BusinessScreenErrorResponse"
+    },
+    "BusinessScreenErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "errorDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fieldName" : {
+                "type" : "string",
+                "description" : "The name of the field"
+              },
+              "code" : {
+                "type" : "string",
+                "description" : "The identifier of the error message"
+              },
+              "message" : {
+                "type" : "string",
+                "description" : "The actual Transact error message for bad requests"
+              }
+            }
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: Business"
+        }
+      }
+    },
+    "SystemScreenErrorResponse" : {
+      "properties" : {
+        "header" : {
+          "$ref" : "#/definitions/ErrorHeader"
+        },
+        "error" : {
+          "$ref" : "#/definitions/SystemScreenErrorResponseBody"
+        }
+      },
+      "description" : "SystemScreenErrorResponse"
+    },
+    "SystemScreenErrorResponseBody" : {
+      "type" : "object",
+      "properties" : {
+        "errorDetails" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "fieldName" : {
+                "type" : "string",
+                "description" : "The name of the field"
+              },
+              "code" : {
+                "type" : "string",
+                "description" : "The identifier of the error message"
+              },
+              "message" : {
+                "type" : "string",
+                "description" : "The actual Transact error message caused by server"
+              }
+            }
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The identifier of error type: System"
+        }
+      }
+    }
+  }
+}

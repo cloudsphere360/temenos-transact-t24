@@ -1,0 +1,31 @@
+{
+  "key" : "fusionCentreMeetingDetails",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/holdings/centreMeetingDetails",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.CENTRE.MEETINGS,FF.API.CENTRE.MEETINGS.1.0.0"
+    } ],
+    "operationId" : "centreMeetingDetails",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "centreMeetingDetails",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusionCentreMeetingDetails",
+  "description" : "fusionCentreMeetingDetails",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : true
+}

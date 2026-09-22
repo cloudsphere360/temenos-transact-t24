@@ -1,0 +1,31 @@
+{
+  "key" : "fusionPartialWaiveOff",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/holdings/fusionPartialWaiveOff",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.WRT.CHG.OFF.ACTIVITY,PARTIAL.WAIVE.OFF.API.1.0.0"
+    } ],
+    "operationId" : "fusionPartialWaiveOff",
+    "operationSecurity" : "Public",
+    "summary" : "fusionPartialWaiveOff",
+    "description" : "fusionPartialWaiveOff",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "fusionPartialWaiveOff",
+  "description" : "fusionPartialWaiveOff",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

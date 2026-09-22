@@ -1,0 +1,39 @@
+{
+  "key" : "ffRogetUserDetails",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "GET",
+    "url" : "/reference/ro/details/{id}",
+    "resources" : [ {
+      "resourceType" : "Query",
+      "key" : "FFL.EB.FF.RO.USER.API.1.0.0",
+      "selections" : [ {
+        "field" : "@ID",
+        "operand" : "EQ",
+        "param" : "id",
+        "type" : "string"
+      }, {
+        "field" : "RO.NAME",
+        "operand" : "EQ",
+        "param" : "Ro_Name",
+        "type" : "string"
+      } ]
+    } ],
+    "operationId" : "ffRogetUserDetails",
+    "operationSecurity" : "Public",
+    "summary" : "ffRogetUserDetails",
+    "description" : "ffRogetUserDetails",
+    "tags" : [ "OTHERS" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false"
+    }
+  } ],
+  "title" : "ffRogetUserDetails",
+  "description" : "ffRogetUserDetails",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : true
+}

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="product-modifyFusionSimulation-modifyFusionSimulation.service.v1.0.0">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="modifyFusionSimulation-v1.0.0-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1.0.0/product/modifyFusionSimulation" produces="application/json" id="product-modifyFusionSimulation.service.restlet">
+        <put uri="/{id}" id="modifyFusionSimulation">
+            <param name="id" type="path" required="true"/>
+            <to uri="direct-vm:product-modifyFusionSimulation.v1.0.0.modifyFusionSimulation"/>
+        </put>
+    </rest>
+    <route id="direct-vm.product-modifyFusionSimulation.v1.0.0.modifyFusionSimulation">
+        <from uri="direct-vm:product-modifyFusionSimulation.v1.0.0.modifyFusionSimulation"/>
+        <setProperty name="operationSecurity">
+            <constant>Public</constant>
+        </setProperty>
+        <setProperty name="appendFields">
+            <constant>false</constant>
+        </setProperty>
+        <setProperty name="extensibility">
+            <constant>true</constant>
+        </setProperty>
+        <setProperty name="response_verbosity">
+            <constant>Minimal</constant>
+        </setProperty>
+        <setProperty name="ignoreReplace">
+            <header>ignoreReplace</header>
+        </setProperty>
+        <setProperty name="function">
+            <constant>input</constant>
+        </setProperty>
+        <setProperty name="validate_only">
+            <header>validate_only</header>
+        </setProperty>
+        <setProperty name="simulation">
+            <constant>true</constant>
+        </setProperty>
+        <setProperty name="autoRun">
+            <constant>SIMULATE</constant>
+        </setProperty>
+        <setProperty name="activity">
+            <constant>LENDING-NEW-ARRANGEMENT</constant>
+        </setProperty>
+        <setProperty name="activityVersion">
+            <constant>AA.API.FF.NEW.1.0.0</constant>
+        </setProperty>
+        <setProperty name="product">
+            <jsonpath suppressExceptions="true">$.body.productId</jsonpath>
+        </setProperty>
+        <setProperty name="account_response">
+            <constant>AA.ARR.ACCOUNT,AA.API.FF.AL.SIMPLE.1.0.0</constant>
+        </setProperty>
+        <setProperty name="account_request">
+            <constant>AA.ARR.ACCOUNT,AA.API.FF.AL.SIMPLE.1.0.0</constant>
+        </setProperty>
+        <setProperty name="processingfee_response">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="processingfee_request">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="insurancefee_response">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="insurancefee_request">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="pennydrop_response">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="pennydrop_request">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="cgst_response">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="cgst_request">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="sgst_response">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="sgst_request">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="igst_response">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="igst_request">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="hospicash_response">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="hospicash_request">
+            <constant>AA.ARR.CHARGE,AA.API.FF.FIXED.1.0.0</constant>
+        </setProperty>
+        <setProperty name="individual_response">
+            <constant>AA.ARR.CUSTOMER,AA.API.FF.SIMPLE.1.0.0</constant>
+        </setProperty>
+        <setProperty name="individual_request">
+            <constant>AA.ARR.CUSTOMER,AA.API.FF.SIMPLE.1.0.0</constant>
+        </setProperty>
+        <setProperty name="printerest_response">
+            <constant>AA.ARR.INTEREST,AA.API.FF.INTEREST.1.0.0</constant>
+        </setProperty>
+        <setProperty name="printerest_request">
+            <constant>AA.ARR.INTEREST,AA.API.FF.INTEREST.1.0.0</constant>
+        </setProperty>
+        <setProperty name="advpayrefund_response">
+            <constant>AA.ARR.INTEREST,AA.API.FF.INTEREST.1.0.0</constant>
+        </setProperty>
+        <setProperty name="advpayrefund_request">
+            <constant>AA.ARR.INTEREST,AA.API.FF.INTEREST.1.0.0</constant>
+        </setProperty>
+        <setProperty name="paymentSchedule_response">
+            <constant>AA.ARR.PAYMENT.SCHEDULE,AA.API.FF.SIMPLE.1.0.0</constant>
+        </setProperty>
+        <setProperty name="paymentSchedule_request">
+            <constant>AA.ARR.PAYMENT.SCHEDULE,AA.API.FF.SIMPLE.1.0.0</constant>
+        </setProperty>
+        <setProperty name="commitment_response">
+            <constant>AA.ARR.TERM.AMOUNT,AA.API.FF.SIMPLE.AL.1.0.0</constant>
+        </setProperty>
+        <setProperty name="commitment_request">
+            <constant>AA.ARR.TERM.AMOUNT,AA.API.FF.SIMPLE.AL.1.0.0</constant>
+        </setProperty>
+        <setProperty name="settleInstructions_response">
+            <constant>AA.ARR.SETTLEMENT,AA.API.FF.SETTLE.1.0.0</constant>
+        </setProperty>
+        <setProperty name="settleInstructions_request">
+            <constant>AA.ARR.SETTLEMENT,AA.API.FF.SETTLE.1.0.0</constant>
+        </setProperty>
+        <setProperty name="recordid">
+            <header>id</header>
+        </setProperty>
+        <setProperty name="mapping">
+            <constant>dynamic_model</constant>
+        </setProperty>
+        <process ref="t24VersionProcessor"/>
+    </route>
+    <route id="direct.mockResponder">
+        <from uri="direct:mockResponder"/>
+        <process ref="mockResponder"/>
+    </route>
+</camelContext>
+
+</beans>

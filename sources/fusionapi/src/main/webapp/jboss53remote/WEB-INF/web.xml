@@ -1,0 +1,77 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
+ <display-name>Camel Web Demo</display-name>
+<context-param>
+	<param-name>contextConfigLocation</param-name>
+	<param-value>classpath:applicationContext.xml</param-value>
+ </context-param>
+ <context-param>
+    <param-name>contextInitializerClasses</param-name>
+    <param-value>com.temenos.irf.config.CustomApplicationContextInitializer</param-value>
+ </context-param>
+<!-- Camel servlet -->
+<servlet>
+<servlet-name>CamelServlet</servlet-name>
+<servlet-class>org.apache.camel.component.servlet.CamelHttpTransportServlet</servlet-class>
+
+<load-on-startup>1</load-on-startup>
+</servlet>
+<!-- Camel servlet mapping -->
+<servlet-mapping>
+<servlet-name>CamelServlet</servlet-name>
+<url-pattern>/api/*</url-pattern>
+</servlet-mapping>
+ <listener>
+   <listener-class>
+         org.springframework.web.context.ContextLoaderListener
+   </listener-class>
+ </listener>
+ 
+ 
+ 
+<!-- <filter>
+    <filter-name>cross-origin</filter-name>
+    <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
+    <init-param>
+        <param-name>allowedOrigins</param-name>
+        <param-value>*</param-value>
+    </init-param>
+    <init-param>
+        <param-name>allowedMethods</param-name>
+        <param-value>GET,POST,HEAD</param-value>
+    </init-param>
+    <init-param>
+        <param-name>allowedHeaders</param-name>
+        <param-value>X-Requested-With,Content-Type,Accept,Origin</param-value>
+    </init-param>
+</filter>
+<filter-mapping>
+    <filter-name>cross-origin</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping> -->
+ <filter>
+    <filter-name>SecurityHeadersFilter</filter-name>
+    <filter-class>com.temenos.irf.core.security.SecurityHeadersFilter</filter-class>
+ </filter>
+ <filter-mapping>
+    <filter-name>SecurityHeadersFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+ </filter-mapping>
+ <listener>
+   <listener-class>
+         com.temenos.irf.core.WarmupListener
+   </listener-class>
+ </listener>
+ 
+
+ <session-config>
+    <cookie-config>
+        <http-only>true</http-only>
+        <secure>true</secure>
+    </cookie-config>
+</session-config>
+ 
+</web-app>

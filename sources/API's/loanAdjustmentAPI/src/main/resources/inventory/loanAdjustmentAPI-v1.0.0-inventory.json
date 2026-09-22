@@ -1,0 +1,31 @@
+{
+  "key" : "loanAdjustmentAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "POST",
+    "url" : "/reference/fusionLoanIntAdjustment",
+    "resources" : [ {
+      "resourceType" : "Screen",
+      "key" : "EB.FF.LOAN.ACTIVITY,FF.API.INT.ADJUST.1.0.0"
+    } ],
+    "operationId" : "loanAdjustmentAPI",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false",
+      "appendFields" : "false",
+      "ignoreReplace" : "false"
+    },
+    "function" : "input"
+  } ],
+  "title" : "loanAdjustmentAPI",
+  "description" : "loanAdjustmentAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

@@ -1,0 +1,45 @@
+{
+  "key" : "fusionloanpayoffdetailsAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "GET",
+    "url" : "/reference/fusionloanpayoffdetail",
+    "resources" : [ {
+      "resourceType" : "Query",
+      "key" : "AA.API.PAYOFF.DETAILS.4.0.0",
+      "selections" : [ {
+        "field" : "ARR.ID",
+        "operand" : "EQ",
+        "param" : "arrangementId",
+        "type" : "string",
+        "required" : "Y"
+      }, {
+        "field" : "SIM.REF",
+        "operand" : "EQ",
+        "param" : "simulationReference",
+        "type" : "string"
+      }, {
+        "field" : "ADJUSTABLE.PROP",
+        "operand" : "EQ",
+        "param" : "adjustProperty",
+        "type" : "string"
+      } ]
+    } ],
+    "operationId" : "fusionloanpayoffdetailsAPI",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false"
+    }
+  } ],
+  "title" : "fusionloanpayoffdetailsAPI",
+  "description" : "fusionloanpayoffdetailsAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}

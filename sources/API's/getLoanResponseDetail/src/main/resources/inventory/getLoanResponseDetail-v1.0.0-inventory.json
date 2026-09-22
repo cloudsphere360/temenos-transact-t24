@@ -1,0 +1,34 @@
+{
+  "key" : "getLoanResponseDetail",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "GET",
+    "url" : "/reference/loan/response",
+    "resources" : [ {
+      "resourceType" : "Query",
+      "key" : "FF.AA.API.SIMULATION.RUNNER.DETAIL.1.0.0",
+      "selections" : [ {
+        "field" : "SIMULATION.ID",
+        "operand" : "EQ",
+        "param" : "simulationId",
+        "type" : "string"
+      } ]
+    } ],
+    "operationId" : "getLoanResponseDetail",
+    "operationSecurity" : "Public",
+    "summary" : "getLoanResponseDetail",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false"
+    }
+  } ],
+  "title" : "getLoanResponseDetail",
+  "description" : "getLoanResponseDetail",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : true
+}

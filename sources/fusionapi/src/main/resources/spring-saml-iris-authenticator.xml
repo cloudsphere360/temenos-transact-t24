@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="com.temenos.irf.web.security.saml" />
+	<context:spring-configured />
+
+	<beans:bean id="samlAuthenticatorConfig"
+		class="com.temenos.irf.web.security.saml.validator.SAMLAuthenticatorConfig">
+
+		<beans:property name="authenticationHeader" value="Authorization" />
+
+		<beans:property name="verifySignature" value="true" />
+
+		<!-- IssuedTime, and Expiration Time are validated -->
+		<beans:property name="verifyBasicClaims" value="true" />
+
+		<!-- Provide the certificate file path -->
+		<beans:property name="certificateFile" value="" />
+		
+		<!-- Provide the principleClaim at which the user principle is available, the default is "NameID"-->
+		<beans:property name="principleClaim" value="NameID" />
+
+		<!-- Add any number of claims as a list( one by one in new lines) that need to be extracted from the Token  -->
+		<beans:property name="claimsToExtract">
+			<beans:list>
+				<beans:value></beans:value>
+			</beans:list>
+		</beans:property>
+
+		<!-- Add any number of claims( one by one in new lines) with a Key and value that need to be validated 
+			from the Token -->
+		<beans:property name="customClaimsValidation">
+			<beans:map>
+				<beans:entry key="" value="" />
+			</beans:map>
+		</beans:property>
+
+	</beans:bean>
+
+</beans:beans>

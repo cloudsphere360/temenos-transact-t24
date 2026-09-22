@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://camel.apache.org/schema/spring 
+       http://camel.apache.org/schema/spring/camel-spring.xsd
+       ">
+	<context:component-scan base-package="com.temenos.irf.jwt.requestcontext.*" />
+
+	<bean id="t24replaceFieldIndicator" class="java.lang.Boolean">
+		<constructor-arg value="false" />
+	</bean>
+
+	<import resource="classpath*:/META-INF/irf-webbase-context.xml" />
+
+	<bean id="t24SecurityFilter" class="com.temenos.irf.comms.security.defaultimpl.NullBean" />
+	
+	<!-- Comment the above bean with id t24SecurityFilter and uncomment below bean for Security Filter  -->
+	<!-- <bean id="t24SecurityFilter" class="com.temenos.irf.comms.security.defaultimpl.T24Security" /> -->
+	<!-- <bean id="t24SecurityFilter" class="com.temenos.irf.security.t24.T24SpringSecurityContextFilter" /> -->
+	<!-- Comment the above bean with id t24SecurityFilter and uncomment below bean for Basic Authentication -->
+	<!-- <bean id="t24SecurityFilter" class="com.temenos.irf.comms.security.defaultimpl.T24BasicAuthenticationCheck" /> -->
+
+	<bean id="t24ConnectionProperties" class="com.temenos.irf.config.StandardPropertyReader">
+		<property name="path" value="classpath:jms.properties" />
+	</bean>
+	
+	    <!-- Externalize property defaulted to be enabled.User can disable this feature by define the property value as "false" -->
+    <bean id="ExternalizePropertyAttributes" class="com.temenos.irf.config.ExtensiblePropertyReader">
+        <property name="externalizeProperty" value="true" />
+    </bean>
+
+	<bean id="serviceLocatorProperties" class="com.temenos.irf.config.StandardPropertyReader">
+		<property name="path" value="irf-config/service-locator.properties" />
+	</bean>
+
+	<bean id="mockDataMgmtProcessor" class="com.temenos.irf.mock.MockDataMgmtProcessor" lazy-init="true">
+		<!-- basePath should be set to the base Directory where mockFiles folder is placed.  -->
+		<property name="basePath" value="classpath:/irf-config/"></property>
+	</bean>
+
+	<bean id="mockResponder" class="com.temenos.irf.core.MockResponder" lazy-init="true">
+		<!-- basePath should be set to the base Directory where mockFiles folder is placed.  -->
+		<property name="basePath" value="classpath:/irf-config/"></property>
+	</bean>
+
+	<bean id="applicationContextProvider" class="com.temenos.irf.config.ApplicationContextProvider" />
+
+	<bean id="vocabProcessor" class="com.temenos.irf.vocab.VocabProcessor">
+		<property name="basePath" value="classpath:/"></property>
+		<property name="applicationContextProvider" ref="applicationContextProvider" />
+	</bean>
+
+	<bean id="OpenApiSpecCreator" class="com.temenos.irf.oas.creator.OpenAPISpecCreator">
+		<property name="propertyPath" value="classpath:/irf-config/data-types.properties"></property>
+	</bean>
+
+	<bean id="ofsResponse" class="com.temenos.irf.ofs.query.OFSQueryResponseParser">
+		<property name="propertyPath" value="classpath:/irf-config/data-types.properties"></property>
+	</bean>
+
+	<bean id="paginationProperties" class="com.temenos.irf.config.StandardPropertyReader">
+		<property name="path" value="classpath:/irf-config/pagination-info.properties" />
+	</bean>
+
+	<bean id="sourceAdapter" class="com.temenos.irf.git.source.adapter.GitSourceAdapter" />
+
+	<bean id="gitConfiguration" class="com.temenos.irf.config.StandardPropertyReader">
+		<property name="path" value="classpath:/irf-config/git-dev-config.properties" />
+	</bean>
+
+	<bean id="saveConfiguration" class="com.temenos.irf.config.StandardPropertyReader">
+		<property name="path" value="classpath:/irf-config/save-file-config.properties" />
+	</bean>
+
+	<bean id="vettingTableLookupProperties" class="com.temenos.irf.config.StandardPropertyReader">
+		<property name="path" value="classpath:/irf-config/vettingtable_lookup.properties" />
+	</bean>
+	
+	    <!-- enable below two beans for microservice based metric usage strategy -->
+    <!-- <bean id="metricflushstrategy" class="com.temenos.irf.core.metrics.MicroserviceSimpleCountFlushStrategy" />
+
+    <bean id="msMetricsFlusher" class="com.temenos.irf.core.metrics.MicroserviceMetricsFlusher"/> -->
+    
+    <!-- Enable below bean to disable the mechanism of metric flush usage strategy -->
+    <!-- <bean id="metricflushstrategy" class="com.temenos.irf.core.metrics.NullStrategy" /> -->
+
+	<import resource="classpath*:/services/**/provider-*-v*.*.*.xml" />
+	<import resource="classpath*:/services/**/publish-*-v*.*.*.xml" />
+	<import resource="classpath*:/infra-v*.*.*.xml" />
+	<import resource="classpath*:/config/**/spring-*.xml" />
+	<beans profile="import-service">
+		<import resource="classpath*:/services/**/*-service-v*.xml"/>
+	</beans>
+</beans>

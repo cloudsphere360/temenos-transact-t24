@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans    
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="reference-ro-ffRogetUserDetails.service.v1.0.0">
+    <onException>
+        <exception>java.lang.Exception</exception>
+        <handled>
+            <constant>true</constant>
+        </handled>
+        <process ref="exceptionHandler"/>
+    </onException>
+    <restConfiguration component="servlet" producerApiDoc="ffRogetUserDetails-v1.0.0-swagger.json" bindingMode="auto" enableCORS="true"/>
+    <rest path="/v1.0.0/reference/ro" produces="application/json" id="reference-ro.service.restlet">
+        <get uri="/details/{id}" id="ffRogetUserDetails">
+            <param name="id" type="path" required="true"/>
+            <to uri="direct-vm:reference-ro.v1.0.0.ffRogetUserDetails"/>
+        </get>
+    </rest>
+    <route id="direct-vm.reference-ro.v1.0.0.ffRogetUserDetails">
+        <from uri="direct-vm:reference-ro.v1.0.0.ffRogetUserDetails"/>
+        <setProperty name="operationSecurity">
+            <constant>Public</constant>
+        </setProperty>
+        <setProperty name="extensibility">
+            <constant>true</constant>
+        </setProperty>
+        <setProperty name="target">
+            <constant>FFL.EB.FF.RO.USER.API.1.0.0</constant>
+        </setProperty>
+        <setProperty name="selection1">
+            <constant>@ID EQ {id}</constant>
+        </setProperty>
+        <setProperty name="selection2">
+            <constant>RO.NAME EQ {Ro_Name}</constant>
+        </setProperty>
+        <process ref="t24EnquiryProcessor"/>
+    </route>
+    <route id="direct.mockResponder">
+        <from uri="direct:mockResponder"/>
+        <process ref="mockResponder"/>
+    </route>
+</camelContext>
+
+</beans>

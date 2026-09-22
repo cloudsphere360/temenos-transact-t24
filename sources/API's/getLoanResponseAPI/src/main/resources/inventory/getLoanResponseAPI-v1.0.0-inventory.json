@@ -1,0 +1,34 @@
+{
+  "key" : "getLoanResponseAPI",
+  "version" : "v1.0.0",
+  "paths" : [ {
+    "method" : "GET",
+    "url" : "/reference/fusion/loanResponse",
+    "resources" : [ {
+      "resourceType" : "Query",
+      "key" : "NOFILE.API.FF.REPAY.SCHEDULE.1.0.0",
+      "selections" : [ {
+        "field" : "SIMULATION.ID",
+        "operand" : "EQ",
+        "param" : "simulationId",
+        "type" : "string"
+      } ]
+    } ],
+    "operationId" : "getLoanResponseAPI",
+    "operationSecurity" : "Public",
+    "summary" : "",
+    "description" : "",
+    "tags" : [ "RETAIL" ],
+    "properties" : {
+      "clientType" : "INTERNAL",
+      "deprecated" : "false"
+    }
+  } ],
+  "title" : "getLoanResponseAPI",
+  "description" : "getLoanResponseAPI",
+  "basepath" : "/api",
+  "host" : "api.server.com",
+  "schemes" : [ "http", "https" ],
+  "createDynamicRoute" : false,
+  "versions" : false
+}
