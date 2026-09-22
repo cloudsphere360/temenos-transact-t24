@@ -12,25 +12,14 @@ pipeline {
             }
         }
 
-        stage('Step 2: Automated Maven Build') {
+        stage('Step 2: Check TAFJ & T24 Lib Paths on Agent') {
             steps {
                 sh '''#!/bin/bash
-                    set -e
-                    mvn -version
-
-                    for pom in $(find sources -name "pom.xml"); do
-                        echo "Building POM: ${pom}"
-                        mvn -f "${pom}" clean package -DskipTests
-                    done
-                '''
-            }
-        }
-
-        stage('Step 3: Inspect Generated Artifacts') {
-            steps {
-                sh '''#!/bin/bash
-                    echo "--- Generated JAR and WAR Artifacts ---"
-                    find sources -name "*.jar" -o -name "*.war" | grep -v "/test/"
+                    echo "Checking Preimage Kit directories for jars..."
+                    ls -d /home/ec2-user/UAT/Preimage_Kits/* 2>/dev/null || echo "Path not found"
+                    
+                    echo "Searching for TAFJCore.jar on agent..."
+                    find /home/ec2-user/UAT/ -name "TAFJCore.jar" 2>/dev/null || echo "TAFJCore not found"
                 '''
             }
         }
