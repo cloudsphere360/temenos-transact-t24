@@ -11,18 +11,11 @@ pipeline {
             }
         }
 
-        stage('Inspect Changes') {
+        stage('Build') {
             steps {
-                sh '''
-                    echo "===== WORKSPACE ====="
-                    pwd
-
-                    echo "===== CHANGED FILES ====="
-                    git diff --name-only HEAD~1 HEAD
-
-                    echo "===== POM FILES ====="
-                    find . -name "pom.xml" -type f
-                '''
+                dir('sources/MavenProjects/LoanSettlementMaven') {
+                    sh 'mvn clean package'
+                }
             }
         }
     }
