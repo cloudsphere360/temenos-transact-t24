@@ -11,12 +11,19 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                dir('sources/MavenProjects/LoanSettlementMaven') {
-                    sh 'mvn clean package'
-                }
-            }
-        }
+        stage('Check Repository') {
+    steps {
+        sh '''
+            echo "===== ROOT FILES ====="
+            ls -la
+
+            echo "===== DOCKERFILES ====="
+            find . -iname "Dockerfile*" -type f
+
+            echo "===== BUILD SCRIPTS ====="
+            find . -iname "*.sh" -type f
+        '''
+         }
+       }
     }
 }
